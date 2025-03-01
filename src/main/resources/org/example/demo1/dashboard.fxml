@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.demo1.controllers.DashboardController"
+            prefHeight="600.0" prefWidth="800.0">
+
+    <top>
+        <HBox alignment="CENTER" style="-fx-background-color: #3498db;">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <Label text="Data Structures Visualizer Dashboard" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="24.0"/>
+                </font>
+            </Label>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" spacing="30">
+            <padding>
+                <Insets top="40" right="40" bottom="40" left="40"/>
+            </padding>
+
+            <Text text="Welcome to Data Structures Visualizer" style="-fx-font-size: 24px;"/>
+            <Text text="Navigate to different sections using the buttons below" style="-fx-font-size: 16px;"/>
+
+            <GridPane alignment="CENTER" hgap="30" vgap="30">
+                <columnConstraints>
+                    <ColumnConstraints halignment="CENTER" />
+                    <ColumnConstraints halignment="CENTER" />
+                    <ColumnConstraints halignment="CENTER" />
+                </columnConstraints>
+
+                <rowConstraints>
+                    <RowConstraints valignment="CENTER" />
+                    <RowConstraints valignment="CENTER" />
+                </rowConstraints>
+
+                <!-- Login Button -->
+                <VBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <Button fx:id="loginButton" text="Login" onAction="#onLoginButtonClick"
+                            prefWidth="150" prefHeight="100">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Button>
+                    <Label text="User Authentication" style="-fx-font-size: 14px;"/>
+                </VBox>
+
+                <!-- Catalog Button -->
+                <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <Button fx:id="catalogButton" text="Catalog" onAction="#onCatalogButtonClick"
+                            prefWidth="150" prefHeight="100">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Button>
+                    <Label text="Data Structures Catalog" style="-fx-font-size: 14px;"/>
+                </VBox>
+
+                <!-- Visualization Button -->
+                <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                    <Button fx:id="visualizationButton" text="Visualization" onAction="#onVisualizationButtonClick"
+                            prefWidth="150" prefHeight="100">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Button>
+                    <Label text="Interactive Visualizations" style="-fx-font-size: 14px;"/>
+                </VBox>
+
+                <!-- Tutorial Button -->
+                <VBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <Button fx:id="tutorialButton" text="Tutorial" onAction="#onTutorialButtonClick"
+                            prefWidth="150" prefHeight="100">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Button>
+                    <Label text="Learning Tutorials" style="-fx-font-size: 14px;"/>
+                </VBox>
+
+                <!-- Problems Button -->
+                <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <Button fx:id="problemsButton" text="Problems" onAction="#onProblemsButtonClick"
+                            prefWidth="150" prefHeight="100">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Button>
+                    <Label text="Practice Problems" style="-fx-font-size: 14px;"/>
+                </VBox>
+
+                <!-- Profile Button -->
+                <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                    <Button fx:id="profileButton" text="Profile" onAction="#onProfileButtonClick"
+                            prefWidth="150" prefHeight="100">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Button>
+                    <Label text="User Profile" style="-fx-font-size: 14px;"/>
+                </VBox>
+            </GridPane>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" style="-fx-background-color: #f4f4f4;">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Text text="© 2025 Data Structures Visualizer Team" style="-fx-font-size: 12px;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
