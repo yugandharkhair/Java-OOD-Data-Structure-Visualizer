@@ -17,7 +17,7 @@
                 <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
             <Button fx:id="backButton" text="Back to Dashboard" onAction="#onBackButtonClick"/>
-            <Label text="Visualization Screen" textFill="WHITE" style="-fx-font-size: 20px;"/>
+            <Label text="Data Structures" textFill="WHITE" style="-fx-font-size: 20px;"/>
         </HBox>
     </top>
 

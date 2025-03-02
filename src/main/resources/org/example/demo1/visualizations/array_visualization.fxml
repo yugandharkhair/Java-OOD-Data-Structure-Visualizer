@@ -16,7 +16,7 @@
             <padding>
                 <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
-            <Button fx:id="backButton" text="Back to Dashboard" onAction="#onBackButtonClick"/>
+            <Button fx:id="backButton" text="Back" onAction="#onBackButtonClick"/>
             <Label text="Arrays" textFill="WHITE" style="-fx-font-size: 20px;"/>
         </HBox>
     </top>

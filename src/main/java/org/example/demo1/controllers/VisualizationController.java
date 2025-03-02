@@ -38,7 +38,7 @@ public class VisualizationController {
 
     @FXML
     private void onQueueClick(ActionEvent event) {
-        navigateToScreen("org/example/demo1/visualizations/array_visualization.fxml", event);
+        navigateToScreen("org/example/demo1/visualizations/queue_visualization.fxml", event);
     }
 
     @FXML
