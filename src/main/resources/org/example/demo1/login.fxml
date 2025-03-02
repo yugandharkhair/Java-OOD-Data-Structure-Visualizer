@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -16,14 +16,74 @@
                 <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
             <Button fx:id="backButton" text="Back to Dashboard" onAction="#onBackButtonClick"/>
-            <Label text="Login Screen" textFill="WHITE" style="-fx-font-size: 20px;"/>
+            <Label text="Login / Register" textFill="WHITE" style="-fx-font-size: 20px;"/>
         </HBox>
     </top>
 
     <center>
-        <VBox alignment="CENTER">
-            <Label text="Login/Registration Placeholder" style="-fx-font-size: 24px;"/>
-        </VBox>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+            <Tab text="Login">
+                <VBox alignment="CENTER" spacing="15" maxWidth="400" maxHeight="300">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+
+                    <Label text="Login to Your Account" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+                    <VBox spacing="5">
+                        <Label text="Username"/>
+                        <TextField fx:id="loginUsername" promptText="Enter your username"/>
+                    </VBox>
+
+                    <VBox spacing="5">
+                        <Label text="Password"/>
+                        <PasswordField fx:id="loginPassword" promptText="Enter your password"/>
+                    </VBox>
+
+                    <Label fx:id="loginMessage" textFill="RED"/>
+
+                    <Button text="Login" onAction="#onLoginButtonClick"
+                            style="-fx-background-color: #3498db; -fx-text-fill: white;"
+                            maxWidth="Infinity"/>
+                </VBox>
+            </Tab>
+
+            <Tab text="Register">
+                <VBox alignment="CENTER" spacing="15" maxWidth="400">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+
+                    <Label text="Create New Account" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+                    <VBox spacing="5">
+                        <Label text="Username"/>
+                        <TextField fx:id="registerUsername" promptText="Choose a username"/>
+                    </VBox>
+
+                    <VBox spacing="5">
+                        <Label text="Email"/>
+                        <TextField fx:id="registerEmail" promptText="Enter your email"/>
+                    </VBox>
+
+                    <VBox spacing="5">
+                        <Label text="Password"/>
+                        <PasswordField fx:id="registerPassword" promptText="Create a password"/>
+                    </VBox>
+
+                    <VBox spacing="5">
+                        <Label text="Confirm Password"/>
+                        <PasswordField fx:id="registerConfirmPassword" promptText="Confirm your password"/>
+                    </VBox>
+
+                    <Label fx:id="registerMessage" textFill="RED"/>
+
+                    <Button text="Register" onAction="#onRegisterButtonClick"
+                            style="-fx-background-color: #2ecc71; -fx-text-fill: white;"
+                            maxWidth="Infinity"/>
+                </VBox>
+            </Tab>
+        </TabPane>
     </center>
 
     <bottom>
