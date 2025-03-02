@@ -43,7 +43,7 @@ public class VisualizationController {
 
     @FXML
     private void onTreeClick(ActionEvent event) {
-        navigateToScreen("org/example/demo1/visualizations/array_visualization.fxml", event);
+        navigateToScreen("org/example/demo1/visualizations/bst_visualization.fxml", event);
     }
 
     @FXML

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.demo1.controllers.visualizations.BSTVisualizationController"
+            prefHeight="1000.0" prefWidth="1500.0">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #3498db;">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Button fx:id="backButton" text="Back" onAction="#onBackButtonClick"/>
+            <Label text="Binary Search Tree" textFill="WHITE" style="-fx-font-size: 20px;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <Pane fx:id="bstPane" prefHeight="600" prefWidth="1000"
+              style="-fx-background-color: #f4f4f4;"/>
+    </center>
+
+    <bottom>
+        <VBox alignment="CENTER" style="-fx-background-color: #f4f4f4;">
+            <HBox alignment="CENTER" spacing="10">
+                <TextField fx:id="inputField" promptText="Enter element" maxWidth="100"/>
+                <Button fx:id="insertButton" text="Insert"/>
+                <Button fx:id="deleteButton" text="Delete"/>
+            </HBox>
+            <Text text="" style="-fx-font-size: 12px;"/>
+        </VBox>
+    </bottom>
+
+</BorderPane>
