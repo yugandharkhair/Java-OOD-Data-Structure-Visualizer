@@ -89,20 +89,29 @@
                     </VBox>
                 </TitledPane>
 
-                <!-- Progress Section -->
-                <TitledPane text="Learning Progress" expanded="true">
+<!--                &lt;!&ndash; Progress Section &ndash;&gt;-->
+<!--                <TitledPane text="Learning Progress" expanded="true">-->
+<!--                    <VBox spacing="15">-->
+<!--                        <padding>-->
+<!--                            <Insets top="10" right="10" bottom="10" left="10"/>-->
+<!--                        </padding>-->
+
+<!--                        <Label text="Completed Tutorials" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>-->
+<!--                        <Label fx:id="completedTutorialsLabel" text="0 tutorials completed"/>-->
+<!--                        <ProgressBar fx:id="tutorialsProgress" progress="0.0" maxWidth="Infinity"/>-->
+
+<!--                        <Label text="Solved Problems" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>-->
+<!--                        <Label fx:id="completedProblemsLabel" text="0 problems solved"/>-->
+<!--                        <ProgressBar fx:id="problemsProgress" progress="0.0" maxWidth="Infinity"/>-->
+<!--                    </VBox>-->
+<!--                </TitledPane>-->
+                <!-- Tutorial Progress Section -->
+                <TitledPane fx:id="tutorialProgressPane" text="Data Structures Progress" expanded="true">
                     <VBox spacing="15">
                         <padding>
                             <Insets top="10" right="10" bottom="10" left="10"/>
                         </padding>
-
-                        <Label text="Completed Tutorials" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
-                        <Label fx:id="completedTutorialsLabel" text="0 tutorials completed"/>
-                        <ProgressBar fx:id="tutorialsProgress" progress="0.0" maxWidth="Infinity"/>
-
-                        <Label text="Solved Problems" style="-fx-font-weight: bold; -fx-font-size: 16px;"/>
-                        <Label fx:id="completedProblemsLabel" text="0 problems solved"/>
-                        <ProgressBar fx:id="problemsProgress" progress="0.0" maxWidth="Infinity"/>
+                        <!-- Content will be filled programmatically -->
                     </VBox>
                 </TitledPane>
             </VBox>
