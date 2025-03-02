@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.demo1.controllers.problems.ProblemsController"
+            prefHeight="600.0" prefWidth="800.0">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #3498db;">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Button fx:id="backButton" text="Back" onAction="#onBackButtonClick"/>
+            <Label fx:id="titleLabel" text="Problems" textFill="WHITE" style="-fx-font-family: 'Arial'; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" spacing="20">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <TableView fx:id="problemsTable" prefWidth="700" prefHeight="400">
+                <columns>
+                    <TableColumn fx:id="titleColumn" text="Problem Title"/>
+                    <TableColumn fx:id="difficultyColumn" text="Difficulty"/>
+                    <TableColumn fx:id="linkColumn" text="Link"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" style="-fx-background-color: #f4f4f4;">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Label text="© 2025 Data Structures Visualizer Team" style="-fx-font-size: 12px;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
