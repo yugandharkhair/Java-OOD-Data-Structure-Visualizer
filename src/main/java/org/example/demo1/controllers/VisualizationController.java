@@ -33,7 +33,7 @@ public class VisualizationController {
 
     @FXML
     private void onStackClick(ActionEvent event) {
-        navigateToScreen("org/example/demo1/visualizations/array_visualization.fxml", event);
+        navigateToScreen("org/example/demo1/visualizations/stack_visualization.fxml", event);
     }
 
     @FXML
