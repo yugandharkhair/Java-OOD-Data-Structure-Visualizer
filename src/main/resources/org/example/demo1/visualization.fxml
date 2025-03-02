@@ -4,6 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -21,8 +22,91 @@
     </top>
 
     <center>
-        <VBox alignment="CENTER">
-            <Label text="Data Structure Visualization Placeholder" style="-fx-font-size: 24px;"/>
+        <VBox alignment="CENTER" spacing="30">
+            <padding>
+                <Insets top="40" right="40" bottom="40" left="40"/>
+            </padding>
+
+            <Text text="Select a data structure" style="-fx-font-size: 16px;"/>
+
+            <GridPane alignment="CENTER" hgap="30" vgap="30">
+                <columnConstraints>
+                    <ColumnConstraints halignment="CENTER" />
+                    <ColumnConstraints halignment="CENTER" />
+                    <ColumnConstraints halignment="CENTER" />
+                </columnConstraints>
+
+                <rowConstraints>
+                    <RowConstraints valignment="CENTER" />
+                    <RowConstraints valignment="CENTER" />
+                </rowConstraints>
+
+                <!-- Array Button -->
+                <VBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <Button fx:id="arrayButton" text="Arrays" onAction="#onArrayClick"
+                            prefWidth="150" prefHeight="100">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Button>
+                    <Label text="Arrays" style="-fx-font-size: 14px;"/>
+                </VBox>
+
+                <!-- LinkedList Button -->
+                <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <Button fx:id="linkedListButton" text="Linked Lists" onAction="#onLinkedListClick"
+                            prefWidth="150" prefHeight="100">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Button>
+                    <Label text="Linked Lists" style="-fx-font-size: 14px;"/>
+                </VBox>
+
+                <!-- Stack Button -->
+                <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                    <Button fx:id="stackButton" text="Stacks" onAction="#onStackClick"
+                            prefWidth="150" prefHeight="100">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Button>
+                    <Label text="Stacks" style="-fx-font-size: 14px;"/>
+                </VBox>
+
+                <!-- Queue Button -->
+                <VBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <Button fx:id="queueButton" text="Queues" onAction="#onQueueClick"
+                            prefWidth="150" prefHeight="100">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Button>
+                    <Label text="Queues" style="-fx-font-size: 14px;"/>
+                </VBox>
+
+                <!-- Tree Button -->
+                <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <Button fx:id="treeButton" text="Trees" onAction="#onTreeClick"
+                            prefWidth="150" prefHeight="100">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Button>
+                    <Label text="Trees" style="-fx-font-size: 14px;"/>
+                </VBox>
+
+                <!-- Graph Button -->
+                <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                    <Button fx:id="graphButton" text="Graphs" onAction="#onGraphClick"
+                            prefWidth="150" prefHeight="100">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Button>
+                    <Label text="Graphs" style="-fx-font-size: 14px;"/>
+                </VBox>
+            </GridPane>
         </VBox>
     </center>
 

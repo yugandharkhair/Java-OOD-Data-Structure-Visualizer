@@ -2,13 +2,13 @@ module org.example.demo1 {
     requires javafx.controls;
     requires javafx.fxml;
 
-    // Export your controller package to javafx.fxml
-    exports org.example.demo1.controllers to javafx.fxml;
-
-    // Also export your main package
+    // Export packages so JavaFX can access them
     exports org.example.demo1;
+    exports org.example.demo1.controllers to javafx.fxml;
+    exports org.example.demo1.controllers.visualizations to javafx.fxml;  // 🔹 Make this visible
 
-    // Opens packages for FXML reflection
-    opens org.example.demo1.controllers to javafx.fxml;
+    // Opens packages for reflection-based FXML loading
     opens org.example.demo1 to javafx.fxml;
+    opens org.example.demo1.controllers to javafx.fxml;
+    opens org.example.demo1.controllers.visualizations to javafx.fxml; // 🔹 Important!
 }
