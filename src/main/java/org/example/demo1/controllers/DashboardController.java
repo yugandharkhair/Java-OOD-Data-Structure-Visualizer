@@ -120,7 +120,7 @@ public class DashboardController implements Initializable {
     @FXML
     private void onProblemsButtonClick(ActionEvent event) {
         if (UserSession.getInstance().isLoggedIn()) {
-            navigateToScreen("org/example/demo1/problems.fxml");
+            navigateToScreen("org/example/demo1/problems_frontend/problemsdashboard.fxml");
         } else {
             promptLogin();
         }
