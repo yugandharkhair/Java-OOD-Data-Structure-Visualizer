@@ -4,12 +4,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.example.demo1.models.Tutorial;
 import org.example.demo1.models.User;
 import org.example.demo1.repositories.UserRepository;
+import org.example.demo1.services.TutorialService;
 import org.example.demo1.utils.UserSession;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -48,19 +54,10 @@ public class ProfileController extends BaseController implements Initializable {
     private Label passwordMessage;
 
     @FXML
-    private Label completedTutorialsLabel;
-
-    @FXML
-    private Label completedProblemsLabel;
-
-    @FXML
-    private ProgressBar tutorialsProgress;
-
-    @FXML
-    private ProgressBar problemsProgress;
-
-    @FXML
     private Button logoutButton;
+
+    @FXML
+    private TitledPane tutorialProgressPane;  // Add this to your profile.fxml
 
     private final UserRepository userRepository = new UserRepository();
     private User currentUser;
@@ -89,29 +86,54 @@ public class ProfileController extends BaseController implements Initializable {
             fullNameField.setText(currentUser.getFullName());
         }
 
-        // Update progress indicators
-        updateProgressIndicators();
+        // Update tutorial progress display
+        updateTutorialProgress();
     }
 
-    private void updateProgressIndicators() {
-        // For demonstration, we'll assume there are 10 tutorials and 20 problems total
-        // In a real application, you'd get these counts from another repository
-        final int TOTAL_TUTORIALS = 10;
-        final int TOTAL_PROBLEMS = 20;
+    private void updateTutorialProgress() {
+        // Only proceed if user is logged in
+        if (currentUser == null) {
+            return;
+        }
 
-        int completedTutorials = currentUser.getCompletedTutorials() != null ?
-                currentUser.getCompletedTutorials().size() : 0;
+        // Create a VBox to hold tutorial progress data
+        VBox tutorialProgressBox = new VBox(10);
+        tutorialProgressBox.setPadding(new Insets(10));
 
-        int completedProblems = currentUser.getCompletedProblems() != null ?
-                currentUser.getCompletedProblems().size() : 0;
+        // Get the tutorial service
+        TutorialService tutorialService = TutorialService.getInstance();
 
-        // Update labels
-        completedTutorialsLabel.setText(completedTutorials + " out of " + TOTAL_TUTORIALS + " tutorials completed");
-        completedProblemsLabel.setText(completedProblems + " out of " + TOTAL_PROBLEMS + " problems solved");
+        // Add heading
+        Label heading = new Label("Data Structures Progress");
+        heading.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
+        tutorialProgressBox.getChildren().add(heading);
 
-        // Update progress bars
-        tutorialsProgress.setProgress((double) completedTutorials / TOTAL_TUTORIALS);
-        problemsProgress.setProgress((double) completedProblems / TOTAL_PROBLEMS);
+        // Add a separator
+        tutorialProgressBox.getChildren().add(new Separator());
+
+        // Add progress for each major tutorial category
+        for (Tutorial tutorial : tutorialService.getAllTutorials()) {
+            double progress = tutorial.getCompletionPercentage(currentUser.getCompletedTutorials());
+
+            HBox tutorialBox = new HBox(10);
+            tutorialBox.setAlignment(Pos.CENTER_LEFT);
+
+            Label nameLabel = new Label(tutorial.getName());
+            nameLabel.setPrefWidth(150);
+
+            ProgressBar progressBar = new ProgressBar(progress / 100.0);
+            progressBar.setPrefWidth(150);
+
+            Label percentLabel = new Label(String.format("%.0f%%", progress));
+
+            tutorialBox.getChildren().addAll(nameLabel, progressBar, percentLabel);
+            tutorialProgressBox.getChildren().add(tutorialBox);
+        }
+
+        // If tutorialProgressPane exists, set its content
+        if (tutorialProgressPane != null) {
+            tutorialProgressPane.setContent(tutorialProgressBox);
+        }
     }
 
     @FXML

@@ -16,14 +16,19 @@
                 <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
             <Button fx:id="backButton" text="Back to Dashboard" onAction="#onBackButtonClick"/>
-            <Label text="Tutorial Screen" textFill="WHITE" style="-fx-font-size: 20px;"/>
+            <Label text="Tutorials Library" textFill="WHITE" style="-fx-font-size: 20px;"/>
         </HBox>
     </top>
 
     <center>
-        <VBox alignment="CENTER">
-            <Label text="Tutorial Content Placeholder" style="-fx-font-size: 24px;"/>
-        </VBox>
+        <ScrollPane fx:id="tutorialScrollPane" fitToWidth="true">
+            <VBox fx:id="tutorialsContainer" spacing="20">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                <!-- Tutorial content will be loaded dynamically -->
+            </VBox>
+        </ScrollPane>
     </center>
 
     <bottom>
