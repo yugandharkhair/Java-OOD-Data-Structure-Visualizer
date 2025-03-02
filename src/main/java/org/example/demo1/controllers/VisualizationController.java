@@ -28,7 +28,7 @@ public class VisualizationController {
 
     @FXML
     private void onLinkedListClick(ActionEvent event) {
-        navigateToScreen("org/example/demo1/visualizations/array_visualization.fxml", event);
+        navigateToScreen("org/example/demo1/visualizations/linkedlist_visualization.fxml", event);
     }
 
     @FXML

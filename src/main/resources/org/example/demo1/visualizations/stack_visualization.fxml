@@ -8,7 +8,7 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.example.demo1.controllers.visualizations.StackVisualizationController"
-            prefHeight="600.0" prefWidth="800.0">
+            prefHeight="1000.0" prefWidth="1500.0">
 
     <top>
         <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #3498db;">
