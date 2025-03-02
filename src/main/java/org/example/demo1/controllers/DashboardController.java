@@ -48,6 +48,9 @@ public class DashboardController implements Initializable {
 
             // Update welcome message
             welcomeLabel.setText("Welcome back, " + UserSession.getInstance().getCurrentUser().getUsername() + "!");
+
+            // Enable all buttons
+            enableAllButtons(true);
         } else {
             // Reset login button
             loginButton.setText("Login");
@@ -55,7 +58,31 @@ public class DashboardController implements Initializable {
 
             // Reset welcome message
             welcomeLabel.setText("Welcome to Data Structures Visualizer");
+
+            // Disable all buttons except login
+            enableAllButtons(false);
         }
+    }
+
+    private void enableAllButtons(boolean enable) {
+        // Login button is handled separately
+
+        // Only enable these buttons if the user is logged in
+        catalogButton.setDisable(!enable);
+        visualizationButton.setDisable(!enable);
+        tutorialButton.setDisable(!enable);
+        problemsButton.setDisable(!enable);
+        profileButton.setDisable(!enable);
+
+        // Add styling to show disabled state more clearly
+        String disabledStyle = "-fx-opacity: 0.5;";
+        String enabledStyle = "";
+
+        catalogButton.setStyle(enable ? enabledStyle : disabledStyle);
+        visualizationButton.setStyle(enable ? enabledStyle : disabledStyle);
+        tutorialButton.setStyle(enable ? enabledStyle : disabledStyle);
+        problemsButton.setStyle(enable ? enabledStyle : disabledStyle);
+        profileButton.setStyle(enable ? enabledStyle : disabledStyle);
     }
 
     @FXML
@@ -65,22 +92,38 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void onCatalogButtonClick(ActionEvent event) {
-        navigateToScreen("org/example/demo1/catalog.fxml");
+        if (UserSession.getInstance().isLoggedIn()) {
+            navigateToScreen("org/example/demo1/catalog.fxml");
+        } else {
+            promptLogin();
+        }
     }
 
     @FXML
     private void onVisualizationButtonClick(ActionEvent event) {
-        navigateToScreen("org/example/demo1/visualization.fxml");
+        if (UserSession.getInstance().isLoggedIn()) {
+            navigateToScreen("org/example/demo1/visualization.fxml");
+        } else {
+            promptLogin();
+        }
     }
 
     @FXML
     private void onTutorialButtonClick(ActionEvent event) {
-        navigateToScreen("org/example/demo1/tutorial.fxml");
+        if (UserSession.getInstance().isLoggedIn()) {
+            navigateToScreen("org/example/demo1/tutorial.fxml");
+        } else {
+            promptLogin();
+        }
     }
 
     @FXML
     private void onProblemsButtonClick(ActionEvent event) {
-        navigateToScreen("org/example/demo1/problems_frontend/problemsdashboard.fxml");
+        if (UserSession.getInstance().isLoggedIn()) {
+            navigateToScreen("org/example/demo1/problems_frontend/problemsdashboard.fxml");
+        } else {
+            promptLogin();
+        }
     }
 
     @FXML
@@ -89,9 +132,13 @@ public class DashboardController implements Initializable {
         if (UserSession.getInstance().isLoggedIn()) {
             navigateToScreen("org/example/demo1/profile.fxml");
         } else {
-            // Redirect to login
-            navigateToScreen("org/example/demo1/login.fxml");
+            promptLogin();
         }
+    }
+
+    private void promptLogin() {
+        // Show login dialog
+        navigateToScreen("org/example/demo1/login.fxml");
     }
 
     private void navigateToScreen(String fxmlFile) {

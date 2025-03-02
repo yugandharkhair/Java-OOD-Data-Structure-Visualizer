@@ -1,6 +1,8 @@
 module org.example.demo1 {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.web;        // Add this for WebView
+    requires java.desktop;      // Add this for Desktop class
 
     requires org.mongodb.driver.sync.client;
     requires org.mongodb.bson;
