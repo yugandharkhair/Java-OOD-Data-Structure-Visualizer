@@ -89,7 +89,7 @@
                     </VBox>
                 </TitledPane>
 
-<!--                &lt;!&ndash; Progress Section &ndash;&gt;-->
+                <!-- Progress Section -->
 <!--                <TitledPane text="Learning Progress" expanded="true">-->
 <!--                    <VBox spacing="15">-->
 <!--                        <padding>-->

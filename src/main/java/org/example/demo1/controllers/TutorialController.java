@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -45,6 +46,7 @@ public class TutorialController extends BaseController implements Initializable 
     private Map<String, TitledPane> tutorialPaneMap = new HashMap<>();
     private Map<String, ProgressBar> progressBarMap = new HashMap<>();
     private Map<String, Label> progressLabelMap = new HashMap<>();
+    private Map<String, Label> completionLabelMap = new HashMap<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -64,6 +66,7 @@ public class TutorialController extends BaseController implements Initializable 
         tutorialPaneMap.clear();
         progressBarMap.clear();
         progressLabelMap.clear();
+        completionLabelMap.clear();
 
         // Get all tutorials
         for (Tutorial tutorial : tutorialService.getAllTutorials()) {
@@ -74,7 +77,26 @@ public class TutorialController extends BaseController implements Initializable 
     private void createTutorialSection(Tutorial tutorial) {
         // Create a section for this tutorial category
         TitledPane tutorialPane = new TitledPane();
-        tutorialPane.setText(tutorial.getName());
+
+        // Create a header with title and completion badge
+        HBox headerBox = new HBox(10);
+        headerBox.setAlignment(Pos.CENTER_LEFT);
+
+        // Tutorial title
+        Label titleLabel = new Label(tutorial.getName());
+        titleLabel.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+
+        // Completion badge/label
+        Label completionLabel = new Label("");
+        completionLabel.setVisible(false); // Hide initially
+        completionLabel.setPadding(new Insets(2, 8, 2, 8));
+        completionLabel.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; " +
+                "-fx-background-radius: 4; -fx-font-size: 12px;");
+        completionLabelMap.put(tutorial.getId(), completionLabel);
+
+        headerBox.getChildren().addAll(titleLabel, completionLabel);
+        tutorialPane.setGraphic(headerBox);
+
         tutorialPane.setCollapsible(true);
         tutorialPane.setExpanded(false);
 
@@ -101,6 +123,12 @@ public class TutorialController extends BaseController implements Initializable 
 
         ProgressBar progressBar = new ProgressBar(progress / 100.0);
         progressBar.setPrefWidth(200);
+        // Set progress bar color based on completion percentage
+        if (progress >= 100) {
+            progressBar.setStyle("-fx-accent: #4CAF50;"); // Green for complete
+        } else if (progress > 0) {
+            progressBar.setStyle("-fx-accent: #2196F3;"); // Blue for in progress
+        }
         progressBarMap.put(tutorial.getId(), progressBar);
 
         Label progressLabel = new Label(String.format("%.0f%% Complete", progress));
@@ -119,36 +147,51 @@ public class TutorialController extends BaseController implements Initializable 
 
         tutorialPane.setContent(tutorialContent);
 
-        // Check if all sub-tutorials are completed and set green background
-        updateTutorialPaneStyle(tutorial);
+        // Check if all sub-tutorials are completed and update visuals
+        updateTutorialCompletionVisuals(tutorial);
 
         tutorialsContainer.getChildren().add(tutorialPane);
     }
 
-    private void updateTutorialPaneStyle(Tutorial tutorial) {
+    private void updateTutorialCompletionVisuals(Tutorial tutorial) {
         TitledPane pane = tutorialPaneMap.get(tutorial.getId());
-        if (pane == null) return;
+        ProgressBar progressBar = progressBarMap.get(tutorial.getId());
+        Label completionLabel = completionLabelMap.get(tutorial.getId());
+
+        if (pane == null || progressBar == null || completionLabel == null) return;
 
         // Check if user is logged in
         if (currentUser == null) {
+            // Reset styles for non-logged in users
             pane.setStyle("");
+            completionLabel.setVisible(false);
             return;
         }
 
-        // Check if all sub-tutorials are completed
-        boolean allCompleted = true;
-        for (SubTutorial subTutorial : tutorial.getSubTutorials()) {
-            if (!currentUser.getCompletedTutorials().contains(subTutorial.getId())) {
-                allCompleted = false;
-                break;
-            }
+        // Calculate completion
+        double progress = tutorial.getCompletionPercentage(currentUser.getCompletedTutorials());
+        boolean isComplete = progress >= 100.0;
+
+        // Update ProgressBar color
+        if (isComplete) {
+            progressBar.setStyle("-fx-accent: #4CAF50;"); // Green for complete
+        } else if (progress > 0) {
+            progressBar.setStyle("-fx-accent: #2196F3;"); // Blue for in progress
+        } else {
+            progressBar.setStyle(""); // Default for not started
         }
 
-        // Set background color based on completion
-        if (allCompleted) {
-            pane.setStyle("-fx-background-color: #C8F7C8;"); // Light green
+        // Update Completion Label
+        if (isComplete) {
+            completionLabel.setText("COMPLETED");
+            completionLabel.setVisible(true);
+
+            // Add a subtle green border and background to the pane
+            pane.setStyle("-fx-border-color: #4CAF50; -fx-border-width: 1px; " +
+                    "-fx-background-color: #F1F8E9;"); // Light green background
         } else {
-            pane.setStyle("");
+            completionLabel.setVisible(false);
+            pane.setStyle(""); // Reset style
         }
     }
 
@@ -160,8 +203,14 @@ public class TutorialController extends BaseController implements Initializable 
         CheckBox completedCheckBox = new CheckBox();
 
         // Check if this tutorial is completed by the user
-        if (currentUser != null && currentUser.getCompletedTutorials().contains(subTutorial.getId())) {
-            completedCheckBox.setSelected(true);
+        boolean isCompleted = currentUser != null &&
+                currentUser.getCompletedTutorials().contains(subTutorial.getId());
+
+        completedCheckBox.setSelected(isCompleted);
+
+        // Style completed items
+        if (isCompleted) {
+            subTutorialBox.setStyle("-fx-background-color: #F1F8E9;"); // Very light green
         }
 
         // Add completion listener
@@ -169,8 +218,10 @@ public class TutorialController extends BaseController implements Initializable 
             if (currentUser != null) {
                 if (completedCheckBox.isSelected()) {
                     currentUser.addCompletedTutorial(subTutorial.getId());
+                    subTutorialBox.setStyle("-fx-background-color: #F1F8E9;"); // Add background when checked
                 } else {
                     currentUser.getCompletedTutorials().remove(subTutorial.getId());
+                    subTutorialBox.setStyle(""); // Remove background when unchecked
                 }
 
                 // Update user in database
@@ -192,6 +243,10 @@ public class TutorialController extends BaseController implements Initializable 
 
         // Create hyperlink to open the tutorial in browser
         Hyperlink tutorialLink = new Hyperlink(subTutorial.getName());
+        if (isCompleted) {
+            tutorialLink.setStyle("-fx-text-fill: #388E3C;"); // Darker green for completed items
+        }
+
         tutorialLink.setOnAction(event -> openTutorialLink(subTutorial));
 
         // Add tooltip with description
@@ -199,6 +254,10 @@ public class TutorialController extends BaseController implements Initializable 
         Tooltip.install(tutorialLink, tooltip);
 
         subTutorialBox.getChildren().addAll(completedCheckBox, tutorialLink);
+
+        // Add padding for better appearance
+        subTutorialBox.setPadding(new Insets(5, 0, 5, 0));
+
         container.getChildren().add(subTutorialBox);
     }
 
@@ -215,7 +274,7 @@ public class TutorialController extends BaseController implements Initializable 
         progressLabel.setText(String.format("%.0f%% Complete", progress));
 
         // Update styling based on completion
-        updateTutorialPaneStyle(tutorial);
+        updateTutorialCompletionVisuals(tutorial);
     }
 
     private void openTutorialLink(SubTutorial subTutorial) {
