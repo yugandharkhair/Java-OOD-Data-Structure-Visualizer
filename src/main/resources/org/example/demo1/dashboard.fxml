@@ -30,7 +30,7 @@
                 <Insets top="40" right="40" bottom="40" left="40"/>
             </padding>
 
-            <Text text="Welcome to Data Structures Visualizer" style="-fx-font-size: 24px;"/>
+            <Label fx:id="welcomeLabel" text="Welcome to Data Structures Visualizer" style="-fx-font-size: 24px;"/>
             <Text text="Navigate to different sections using the buttons below" style="-fx-font-size: 16px;"/>
 
             <GridPane alignment="CENTER" hgap="30" vgap="30">
