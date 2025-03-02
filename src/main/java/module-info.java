@@ -9,7 +9,6 @@ module org.example.demo1 {
     requires org.mongodb.driver.core;
     requires jbcrypt;
 
-    requires java.desktop;
     requires org.json;
     requires javafx.graphics;
 
