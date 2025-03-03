@@ -31,9 +31,6 @@ public class DashboardController implements Initializable {
     private Button loginButton;
 
     @FXML
-    private Button catalogButton;
-
-    @FXML
     private Button visualizationButton;
 
     @FXML
@@ -41,9 +38,6 @@ public class DashboardController implements Initializable {
 
     @FXML
     private Button problemsButton;
-
-    @FXML
-    private Button profileButton;
 
     @FXML
     private Button viewProgressButton;
@@ -82,6 +76,8 @@ public class DashboardController implements Initializable {
     private TutorialService tutorialService;
     private ProblemService problemService;
 
+    // This method is no longer used, we'll set visibility directly in initialize
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tutorialService = TutorialService.getInstance();
@@ -119,7 +115,7 @@ public class DashboardController implements Initializable {
             // Reset welcome message
             welcomeLabel.setText("Welcome to Data Structures Visualizer");
 
-            // Disable all buttons except login
+            // Disable buttons except login
             enableAllButtons(false);
 
             // Hide stats panel and recommended panel - this is crucial!
@@ -276,20 +272,16 @@ public class DashboardController implements Initializable {
 
     private void enableAllButtons(boolean enable) {
         // Only enable these buttons if the user is logged in
-        catalogButton.setDisable(!enable);
         visualizationButton.setDisable(!enable);
         tutorialButton.setDisable(!enable);
         problemsButton.setDisable(!enable);
-        profileButton.setDisable(!enable);
 
         // Set opacity to show disabled state more clearly
         double opacity = enable ? 1.0 : 0.7;
 
-        catalogButton.setOpacity(opacity);
         visualizationButton.setOpacity(opacity);
         tutorialButton.setOpacity(opacity);
         problemsButton.setOpacity(opacity);
-        profileButton.setOpacity(opacity);
     }
 
     @FXML
@@ -300,15 +292,6 @@ public class DashboardController implements Initializable {
         } else {
             // Otherwise go to login
             navigateToScreen("org/example/demo1/login.fxml");
-        }
-    }
-
-    @FXML
-    private void onCatalogButtonClick(ActionEvent event) {
-        if (UserSession.getInstance().isLoggedIn()) {
-            navigateToScreen("org/example/demo1/catalog.fxml");
-        } else {
-            promptLogin();
         }
     }
 
@@ -343,6 +326,15 @@ public class DashboardController implements Initializable {
     private void onProfileButtonClick(ActionEvent event) {
         if (UserSession.getInstance().isLoggedIn()) {
             navigateToScreen("org/example/demo1/profile.fxml");
+        } else {
+            promptLogin();
+        }
+    }
+
+    @FXML
+    private void onViewProgressButtonClick(ActionEvent event) {
+        if (UserSession.getInstance().isLoggedIn()) {
+            navigateToScreen("org/example/demo1/progress-visualization.fxml");
         } else {
             promptLogin();
         }

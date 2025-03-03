@@ -18,6 +18,8 @@
             <Button fx:id="backButton" text="Back to Dashboard" onAction="#onBackButtonClick"/>
             <Label text="User Profile" textFill="WHITE" style="-fx-font-size: 20px;"/>
             <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="viewProgressButton" text="View My Progress" onAction="#onViewProgressButtonClick"
+                    style="-fx-background-color: white; -fx-text-fill: #3498db; -fx-font-weight: bold;"/>
             <Button fx:id="logoutButton" text="Logout" onAction="#onLogoutButtonClick"
                     style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
         </HBox>
@@ -40,7 +42,7 @@
                 <Separator />
 
                 <!-- Profile Edit Section -->
-                <TitledPane text="Edit Profile" expanded="false">
+                <TitledPane text="Edit Profile" expanded="true">
                     <VBox spacing="15">
                         <padding>
                             <Insets top="10" right="10" bottom="10" left="10"/>
@@ -89,25 +91,8 @@
                     </VBox>
                 </TitledPane>
 
-                <!-- Tutorial Progress Section -->
-                <TitledPane fx:id="tutorialProgressPane" text="Data Structures Progress" expanded="true">
-                    <VBox spacing="15">
-                        <padding>
-                            <Insets top="10" right="10" bottom="10" left="10"/>
-                        </padding>
-                        <!-- Content will be filled programmatically -->
-                    </VBox>
-                </TitledPane>
+                <!-- Removed Tutorial Progress and Problem Progress sections -->
 
-                <!-- Problem Progress Section -->
-                <TitledPane fx:id="problemProgressPane" text="Problem Solving Progress" expanded="true">
-                    <VBox spacing="15">
-                        <padding>
-                            <Insets top="10" right="10" bottom="10" left="10"/>
-                        </padding>
-                        <!-- Content will be filled programmatically -->
-                    </VBox>
-                </TitledPane>
             </VBox>
         </ScrollPane>
     </center>
