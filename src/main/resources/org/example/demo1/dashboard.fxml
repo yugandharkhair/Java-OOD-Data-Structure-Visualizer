@@ -21,6 +21,11 @@
                 </padding>
                 <Label text="Data Structures Visualizer" textFill="WHITE" style="-fx-font-size: 28px; -fx-font-weight: bold;"/>
                 <Region HBox.hgrow="ALWAYS" />
+
+                <!-- Profile button moved to header area -->
+<!--                <Button fx:id="profileButton" text="My Profile" onAction="#onProfileButtonClick"-->
+<!--                        style="-fx-background-color: rgba(255,255,255,0.2); -fx-text-fill: white; -fx-background-radius: 20;"/>-->
+
                 <Button fx:id="loginButton" text="Login" onAction="#onLoginButtonClick"
                         style="-fx-background-color: white; -fx-text-fill: #304ffe; -fx-font-weight: bold; -fx-background-radius: 20;"/>
             </HBox>
@@ -62,7 +67,7 @@
 
                         <Region HBox.hgrow="ALWAYS" />
 
-                        <Button fx:id="viewProgressButton" text="View Detailed Progress" onAction="#onProfileButtonClick"
+                        <Button fx:id="viewProgressButton" text="View Detailed Progress" onAction="#onViewProgressButtonClick"
                                 style="-fx-background-color: #f5f5f5; -fx-border-color: #304ffe; -fx-text-fill: #304ffe; -fx-border-radius: 4;"/>
                     </HBox>
                 </VBox>
@@ -77,29 +82,8 @@
                         <ColumnConstraints percentWidth="33.3" />
                     </columnConstraints>
 
-                    <!-- Catalog Card -->
+                    <!-- Visualization Card (moved to first position) -->
                     <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="dashboard-card"
-                          style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);">
-                        <padding>
-                            <Insets top="15" right="15" bottom="15" left="15"/>
-                        </padding>
-
-                        <!-- Icon placeholder -->
-                        <Rectangle width="50" height="50" arcWidth="10" arcHeight="10" fill="#304ffe" />
-
-                        <Label text="Catalog" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 10 0 5 0; -fx-text-fill: #212121;"/>
-                        <Label text="Browse through various data structures and algorithms" wrapText="true"
-                               style="-fx-font-size: 14px; -fx-text-fill: #212121; -fx-padding: 0 0 10 0;"/>
-
-                        <Region VBox.vgrow="ALWAYS" />
-
-                        <Button fx:id="catalogButton" text="Browse Catalog" onAction="#onCatalogButtonClick"
-                                style="-fx-background-color: #304ffe; -fx-text-fill: white; -fx-background-radius: 4;"
-                                maxWidth="Infinity"/>
-                    </VBox>
-
-                    <!-- Visualization Card -->
-                    <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="dashboard-card"
                           style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);">
                         <padding>
                             <Insets top="15" right="15" bottom="15" left="15"/>
@@ -120,7 +104,7 @@
                     </VBox>
 
                     <!-- Tutorials Card -->
-                    <VBox GridPane.columnIndex="2" GridPane.rowIndex="0" styleClass="dashboard-card"
+                    <VBox GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="dashboard-card"
                           style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);">
                         <padding>
                             <Insets top="15" right="15" bottom="15" left="15"/>
@@ -141,7 +125,7 @@
                     </VBox>
 
                     <!-- Problems Card -->
-                    <VBox GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="dashboard-card"
+                    <VBox GridPane.columnIndex="2" GridPane.rowIndex="0" styleClass="dashboard-card"
                           style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);">
                         <padding>
                             <Insets top="15" right="15" bottom="15" left="15"/>
@@ -158,27 +142,6 @@
 
                         <Button fx:id="problemsButton" text="Solve Problems" onAction="#onProblemsButtonClick"
                                 style="-fx-background-color: #43a047; -fx-text-fill: white; -fx-background-radius: 4;"
-                                maxWidth="Infinity"/>
-                    </VBox>
-
-                    <!-- Profile Card -->
-                    <VBox GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="dashboard-card"
-                          style="-fx-background-color: white; -fx-background-radius: 8; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);">
-                        <padding>
-                            <Insets top="15" right="15" bottom="15" left="15"/>
-                        </padding>
-
-                        <!-- Icon placeholder -->
-                        <Rectangle width="50" height="50" arcWidth="10" arcHeight="10" fill="#ff5722" />
-
-                        <Label text="User Profile" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 10 0 5 0; -fx-text-fill: #212121;"/>
-                        <Label text="View and manage your personal information and progress" wrapText="true"
-                               style="-fx-font-size: 14px; -fx-text-fill: #212121; -fx-padding: 0 0 10 0;"/>
-
-                        <Region VBox.vgrow="ALWAYS" />
-
-                        <Button fx:id="profileButton" text="View Profile" onAction="#onProfileButtonClick"
-                                style="-fx-background-color: #ff5722; -fx-text-fill: white; -fx-background-radius: 4;"
                                 maxWidth="Infinity"/>
                     </VBox>
                 </GridPane>
