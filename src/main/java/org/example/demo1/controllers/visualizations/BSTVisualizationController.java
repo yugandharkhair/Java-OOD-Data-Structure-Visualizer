@@ -1,7 +1,7 @@
 package org.example.demo1.controllers.visualizations;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.PauseTransition;
+import javafx.animation.SequentialTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -20,6 +19,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BSTVisualizationController {
     private BSTNode root;
@@ -31,12 +32,13 @@ public class BSTVisualizationController {
     private TextField inputField;
 
     @FXML
-    private Button insertButton, deleteButton, backButton;
+    private Button insertButton, deleteButton, backButton, searchButton;
 
     @FXML
     public void initialize() {
         insertButton.setOnAction(e -> insertNode());
         deleteButton.setOnAction(e -> deleteNode());
+        searchButton.setOnAction(e -> searchNode());
         backButton.setOnAction(this::onBackButtonClick);
     }
 
@@ -50,26 +52,134 @@ public class BSTVisualizationController {
         }
     }
 
+    private void searchNode() {
+        try {
+            int value = Integer.parseInt(inputField.getText());
+            highlightSearchPath(root, value);
+            inputField.clear();
+        } catch (NumberFormatException e) {
+            inputField.setText("Invalid");
+        }
+    }
+
+    private void highlightSearchPath(BSTNode node, int value) {
+        List<BSTNode> pathNodes = new ArrayList<>();
+        List<Line> pathLines = new ArrayList<>();
+
+        BSTNode current = root;
+        while (current != null) {
+            pathNodes.add(current);
+            if (value < current.value) {
+                if (current.leftLine != null) pathLines.add(current.leftLine);
+                current = current.left;
+            } else if (value > current.value) {
+                if (current.rightLine != null) pathLines.add(current.rightLine);
+                current = current.right;
+            } else {
+                break; // Found the node
+            }
+        }
+
+        boolean isFound = (current != null && current.value == value);
+        animateSearchPath(pathNodes, pathLines, isFound);
+    }
+
+    private void animateSearchPath(List<BSTNode> nodes, List<Line> lines, boolean isFound) {
+        SequentialTransition sequence = new SequentialTransition();
+
+        for (int i = 0; i < nodes.size(); i++) {
+            BSTNode node = nodes.get(i);
+            Line line = (i < lines.size()) ? lines.get(i) : null;
+
+            PauseTransition highlightNode = new PauseTransition(Duration.seconds(0.5));
+            highlightNode.setOnFinished(e -> node.dataBox.setStyle(HIGHLIGHT_STYLE));
+
+            sequence.getChildren().add(highlightNode);
+
+            if (line != null) {
+                PauseTransition highlightLine = new PauseTransition(Duration.seconds(0.5));
+                highlightLine.setOnFinished(e -> line.setStroke(Color.web("#FBDF82")));
+                sequence.getChildren().add(highlightLine);
+            }
+        }
+
+        sequence.setOnFinished(e -> {
+            if (isFound) {
+                displayMessage("Element Found!", Color.GREEN);
+            } else {
+                displayMessage("Element Not Found!", Color.RED);
+            }
+
+            PauseTransition resetColors = new PauseTransition(Duration.seconds(2));
+            resetColors.setOnFinished(ev -> resetTreeColors(root));
+            resetColors.play();
+        });
+
+        sequence.play();
+    }
+
+    private void resetTreeColors(BSTNode node) {
+        if (node == null) return;
+
+        node.dataBox.setStyle(DEFAULT_STYLE);
+
+        if (node.leftLine != null) node.leftLine.setStroke(Color.LIGHTBLUE);
+        if (node.rightLine != null) node.rightLine.setStroke(Color.LIGHTBLUE);
+
+        resetTreeColors(node.left);
+        resetTreeColors(node.right);
+    }
+
+    private void displayMessage(String message, Color color) {
+        Text text = new Text(message);
+        text.setFont(Font.font("Arial", 18));
+        text.setFill(color);
+        text.setX(bstPane.getWidth() / 2 - 50);
+        text.setY(bstPane.getHeight() - 30);
+        bstPane.getChildren().add(text);
+
+        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        delay.setOnFinished(e -> bstPane.getChildren().remove(text));
+        delay.play();
+    }
+
+    private static final String HIGHLIGHT_STYLE = "-fx-background-color: #FBDF82; " +
+            "-fx-border-radius: 10px; " +  // Maintain rounded corners
+            "-fx-font-size: 18px; " +
+            "-fx-font-weight: bold; " +
+            "-fx-text-fill: black; " +  // Ensures visibility on yellow background
+            "-fx-alignment: center; " +  // Keep text properly aligned
+            "-fx-padding: 0;";  // Remove unnecessary space around text
+
+    private static final String DEFAULT_STYLE = "-fx-background-color: LIGHTBLUE; " +
+            "-fx-border-radius: 10px; " +  // Maintain rounded corners
+            "-fx-font-size: 18px; " +
+            "-fx-font-weight: bold; " +
+            "-fx-text-fill: black; " +  // Ensures visibility on yellow background
+            "-fx-alignment: center; " +  // Keep text properly aligned
+            "-fx-padding: 0;";  // Remove unnecessary space around text
+
     private BSTNode insertRecursively(BSTNode root, int value, int x, int y, BSTNode parent) {
         if (root == null) {
             root = new BSTNode(value, x, y);
             bstPane.getChildren().add(root.group);
 
             if (parent != null) {
-                // 🔹 New Adjusted Line Placement 🔹
-                double parentX = parent.x + 30; // Adjust to center
-                double parentY = parent.y + 60; // Start from bottom of parent box
-                double childX = x + 30;         // Center of child box
-                double childY = y - 0;         // Connect to top of child box
+                double parentX = parent.x + 30;
+                double parentY = parent.y + 60;
+                double childX = x + 30;
+                double childY = y;
 
                 Line line = new Line(parentX, parentY, childX, childY);
                 line.setStrokeWidth(2);
-                line.setStroke(Color.LIGHTBLUE); // Use blue color scheme
+                line.setStroke(Color.LIGHTBLUE);
                 bstPane.getChildren().add(line);
 
-                root.lineToParent = line;  // 🔥 Store reference for deletion
-            }
+                if (value < parent.value) parent.leftLine = line;
+                else parent.rightLine = line;
 
+                root.lineToParent = line;
+            }
             return root;
         }
 
@@ -81,9 +191,6 @@ public class BSTVisualizationController {
 
         return root;
     }
-
-
-
 
     private void deleteNode() {
         try {
@@ -103,31 +210,23 @@ public class BSTVisualizationController {
         } else if (value > root.value) {
             root.right = deleteRecursively(root.right, value);
         } else {
-            // 🔹 Case 1: No children - Remove the node and its line
             if (root.left == null && root.right == null) {
                 bstPane.getChildren().remove(root.group);
                 if (root.lineToParent != null) bstPane.getChildren().remove(root.lineToParent);
                 return null;
             }
 
-            // 🔹 Case 2: One child - Replace value instead of removing
             if (root.right != null) {
-                root.value = root.right.value;  // Replace parent value with right child
-                updateVisualNode(root); // Update visual node with new value
-
-                // Remove the right child's visualization
+                root.value = root.right.value;
+                updateVisualNode(root);
                 bstPane.getChildren().remove(root.right.group);
                 if (root.right.lineToParent != null) bstPane.getChildren().remove(root.right.lineToParent);
-
                 root.right = deleteRecursively(root.right, root.right.value);
             } else if (root.left != null) {
-                root.value = root.left.value;  // Replace parent value with left child
-                updateVisualNode(root); // Update visual node with new value
-
-                // Remove the left child's visualization
+                root.value = root.left.value;
+                updateVisualNode(root);
                 bstPane.getChildren().remove(root.left.group);
                 if (root.left.lineToParent != null) bstPane.getChildren().remove(root.left.lineToParent);
-
                 root.left = deleteRecursively(root.left, root.left.value);
             }
         }
@@ -136,19 +235,8 @@ public class BSTVisualizationController {
 
     private void updateVisualNode(BSTNode node) {
         if (node != null) {
-            node.dataBox.setText(String.valueOf(node.value)); // Set new value in the TextField
+            node.dataBox.setText(String.valueOf(node.value));
         }
-    }
-
-
-
-
-
-    private int minValue(BSTNode root) {
-        while (root.left != null) {
-            root = root.left;
-        }
-        return root.value;
     }
 
     @FXML
@@ -173,33 +261,33 @@ public class BSTVisualizationController {
         BSTNode left, right;
         int x, y;
         Group group;
-        TextField dataBox; // 🔥 Replace Circle with a TextField
-        Line lineToParent; // 🔥 Store reference to the parent connection
+        TextField dataBox;
+        Line lineToParent;
+        Line leftLine, rightLine;
 
         public BSTNode(int value, int x, int y) {
             this.value = value;
             this.x = x;
             this.y = y;
 
-            // 🔵 Create a Data Box (Rounded TextField)
             dataBox = new TextField(String.valueOf(value));
-            dataBox.setPrefSize(60, 60); // Set width and height
-            dataBox.setStyle("-fx-background-color: LIGHTBLUE; " + // Blue background
-                    "-fx-border-color: transparent; " +         // Black border
-                    "-fx-border-radius: 50%; " +           // Rounded corners
-                    "-fx-font-size: 18px; " +             // Font size
-                    "-fx-font-weight: bold; " +           // Bold text
-                    "-fx-text-fill: white; " +            // White text color
-                    "-fx-alignment: center;");            // Center text alignment
-            dataBox.setEditable(false); // 🔒 Make text non-editable
+            dataBox.setPrefSize(60, 60);
+            dataBox.setStyle(
+                    "-fx-background-color: LIGHTBLUE; " +
+                            "-fx-border-color: transparent; " +
+                            "-fx-border-radius: 10px; " +  // Keep rounded edges
+                            "-fx-font-size: 18px; " +
+                            "-fx-font-weight: bold; " +
+                            "-fx-text-fill: black; " +
+                            "-fx-alignment: center; " + // Ensures the text is centered
+                            "-fx-padding: 0;" // Remove extra spacing around text
+            );
+            dataBox.setEditable(false);
 
-            // Create Group for rendering
             this.group = new Group(dataBox);
             this.group.setLayoutX(x);
             this.group.setLayoutY(y);
         }
     }
-
-
 
 }

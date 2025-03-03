@@ -111,11 +111,11 @@
     </center>
 
     <bottom>
-        <HBox alignment="CENTER" style="-fx-background-color: #f4f4f4;">
+        <HBox alignment="CENTER" style="-fx-background-color: #eeeeee; -fx-border-color: #e0e0e0; -fx-border-width: 1 0 0 0;">
             <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
+                <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
-            <Text text="© 2025 Data Structures Visualizer Team" style="-fx-font-size: 12px;"/>
+            <Label text="© 2025 Data Structures Visualizer Team" style="-fx-font-size: 12px; -fx-text-fill: #757575;"/>
         </HBox>
     </bottom>
 

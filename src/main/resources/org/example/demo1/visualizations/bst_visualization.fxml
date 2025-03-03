@@ -30,6 +30,7 @@
                 <TextField fx:id="inputField" promptText="Enter element" maxWidth="100"/>
                 <Button fx:id="insertButton" text="Insert"/>
                 <Button fx:id="deleteButton" text="Delete"/>
+                <Button fx:id="searchButton" text="Search"/>
             </HBox>
             <Text text="" style="-fx-font-size: 12px;"/>
         </VBox>
