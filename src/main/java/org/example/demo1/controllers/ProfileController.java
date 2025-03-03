@@ -10,11 +10,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.example.demo1.models.ProblemCategory;
 import org.example.demo1.models.Tutorial;
 import org.example.demo1.models.User;
 import org.example.demo1.repositories.UserRepository;
+import org.example.demo1.services.ProblemService;
 import org.example.demo1.services.TutorialService;
 import org.example.demo1.utils.UserSession;
 import org.mindrot.jbcrypt.BCrypt;
@@ -59,7 +63,12 @@ public class ProfileController extends BaseController implements Initializable {
     @FXML
     private TitledPane tutorialProgressPane;  // Add this to your profile.fxml
 
+    @FXML
+    private TitledPane problemProgressPane;  // New TitledPane for problem progress
+
     private final UserRepository userRepository = new UserRepository();
+    private final TutorialService tutorialService = TutorialService.getInstance();
+    private final ProblemService problemService = ProblemService.getInstance();
     private User currentUser;
 
     @Override
@@ -88,6 +97,9 @@ public class ProfileController extends BaseController implements Initializable {
 
         // Update tutorial progress display
         updateTutorialProgress();
+
+        // Update problem progress display
+        updateProblemProgress();
     }
 
     private void updateTutorialProgress() {
@@ -99,9 +111,6 @@ public class ProfileController extends BaseController implements Initializable {
         // Create a VBox to hold tutorial progress data
         VBox tutorialProgressBox = new VBox(10);
         tutorialProgressBox.setPadding(new Insets(10));
-
-        // Get the tutorial service
-        TutorialService tutorialService = TutorialService.getInstance();
 
         // Add heading
         Label heading = new Label("Data Structures Progress");
@@ -124,6 +133,13 @@ public class ProfileController extends BaseController implements Initializable {
             ProgressBar progressBar = new ProgressBar(progress / 100.0);
             progressBar.setPrefWidth(150);
 
+            // Set color based on progress
+            if (progress >= 100) {
+                progressBar.setStyle("-fx-accent: #4CAF50;"); // Green for complete
+            } else if (progress > 0) {
+                progressBar.setStyle("-fx-accent: #2196F3;"); // Blue for in progress
+            }
+
             Label percentLabel = new Label(String.format("%.0f%%", progress));
 
             tutorialBox.getChildren().addAll(nameLabel, progressBar, percentLabel);
@@ -133,6 +149,110 @@ public class ProfileController extends BaseController implements Initializable {
         // If tutorialProgressPane exists, set its content
         if (tutorialProgressPane != null) {
             tutorialProgressPane.setContent(tutorialProgressBox);
+        }
+    }
+
+    private void updateProblemProgress() {
+        // Only proceed if user is logged in
+        if (currentUser == null) {
+            return;
+        }
+
+        // Create a VBox to hold problem progress data
+        VBox problemProgressBox = new VBox(10);
+        problemProgressBox.setPadding(new Insets(10));
+
+        // Add heading
+        Label heading = new Label("Problem Solving Progress");
+        heading.setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
+        problemProgressBox.getChildren().add(heading);
+
+        // Add a separator
+        problemProgressBox.getChildren().add(new Separator());
+
+        // Add overall statistics
+        int totalProblems = 0;
+        int totalCompleted = 0;
+
+        // Count the total number of problems
+        for (ProblemCategory category : problemService.getAllCategories()) {
+            totalProblems += category.getProblems().size();
+        }
+
+        // Count completed problems
+        totalCompleted = currentUser.getCompletedProblems().size();
+
+        // Calculate overall percentage
+        double overallPercentage = totalProblems > 0 ?
+                (double) totalCompleted / totalProblems * 100 : 0;
+
+        // Create overall progress display
+        HBox overallBox = new HBox(10);
+        overallBox.setAlignment(Pos.CENTER_LEFT);
+        overallBox.setStyle("-fx-background-color: #f5f5f5; -fx-padding: 10; -fx-background-radius: 5;");
+
+        Label overallLabel = new Label("Overall Progress");
+        overallLabel.setStyle("-fx-font-weight: bold;");
+        overallLabel.setPrefWidth(150);
+
+        ProgressBar overallProgressBar = new ProgressBar(overallPercentage / 100.0);
+        overallProgressBar.setPrefWidth(150);
+
+        // Set color based on progress
+        if (overallPercentage >= 100) {
+            overallProgressBar.setStyle("-fx-accent: #4CAF50;"); // Green for complete
+        } else if (overallPercentage > 0) {
+            overallProgressBar.setStyle("-fx-accent: #2196F3;"); // Blue for in progress
+        }
+
+        Label overallStatsLabel = new Label(String.format("%.0f%% (%d/%d problems)",
+                overallPercentage, totalCompleted, totalProblems));
+
+        overallBox.getChildren().addAll(overallLabel, overallProgressBar, overallStatsLabel);
+        problemProgressBox.getChildren().add(overallBox);
+
+        // Add a separator
+        problemProgressBox.getChildren().add(new Separator());
+
+        // Add progress for each problem category
+        for (ProblemCategory category : problemService.getAllCategories()) {
+            double progress = category.getCompletionPercentage(currentUser.getCompletedProblems());
+
+            // Count completed problems in this category
+            int categoryTotal = category.getProblems().size();
+            int categoryCompleted = 0;
+            for (String problemId : currentUser.getCompletedProblems()) {
+                if (problemId.startsWith(category.getId())) {
+                    categoryCompleted++;
+                }
+            }
+
+            HBox categoryBox = new HBox(10);
+            categoryBox.setAlignment(Pos.CENTER_LEFT);
+
+            Label nameLabel = new Label(category.getName());
+            nameLabel.setPrefWidth(150);
+
+            ProgressBar progressBar = new ProgressBar(progress / 100.0);
+            progressBar.setPrefWidth(150);
+
+            // Set color based on progress
+            if (progress >= 100) {
+                progressBar.setStyle("-fx-accent: #4CAF50;"); // Green for complete
+            } else if (progress > 0) {
+                progressBar.setStyle("-fx-accent: #2196F3;"); // Blue for in progress
+            }
+
+            Label statsLabel = new Label(String.format("%.0f%% (%d/%d)",
+                    progress, categoryCompleted, categoryTotal));
+
+            categoryBox.getChildren().addAll(nameLabel, progressBar, statsLabel);
+            problemProgressBox.getChildren().add(categoryBox);
+        }
+
+        // If problemProgressPane exists, set its content
+        if (problemProgressPane != null) {
+            problemProgressPane.setContent(problemProgressBox);
         }
     }
 

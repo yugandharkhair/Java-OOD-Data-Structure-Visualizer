@@ -98,7 +98,16 @@ public class TutorialController extends BaseController implements Initializable 
         tutorialPane.setGraphic(headerBox);
 
         tutorialPane.setCollapsible(true);
-        tutorialPane.setExpanded(false);
+
+        // Check if the tutorial is complete
+        boolean isComplete = false;
+        if (currentUser != null) {
+            double progress = tutorial.getCompletionPercentage(currentUser.getCompletedTutorials());
+            isComplete = progress >= 100.0;
+        }
+
+        // Set expanded state based on completion
+        tutorialPane.setExpanded(!isComplete); // Expanded by default, unless complete
 
         // Store reference to pane
         tutorialPaneMap.put(tutorial.getId(), tutorialPane);
@@ -189,11 +198,19 @@ public class TutorialController extends BaseController implements Initializable 
             // Add a subtle green border and background to the pane
             pane.setStyle("-fx-border-color: #4CAF50; -fx-border-width: 1px; " +
                     "-fx-background-color: #F1F8E9;"); // Light green background
+
+            // Collapse the pane if it's complete
+            pane.setExpanded(false);
         } else {
             completionLabel.setVisible(false);
             pane.setStyle(""); // Reset style
+
+            // Expand the pane if it's not complete
+            pane.setExpanded(true);
         }
     }
+
+
 
     private void createSubTutorialItem(SubTutorial subTutorial, VBox container, Tutorial parentTutorial) {
         HBox subTutorialBox = new HBox(10);
@@ -213,22 +230,41 @@ public class TutorialController extends BaseController implements Initializable 
             subTutorialBox.setStyle("-fx-background-color: #F1F8E9;"); // Very light green
         }
 
+        // Create hyperlink to open the tutorial in browser
+        Hyperlink tutorialLink = new Hyperlink(subTutorial.getName());
+        if (isCompleted) {
+            tutorialLink.setStyle("-fx-text-fill: #388E3C;"); // Darker green for completed items
+        }
+
+        tutorialLink.setOnAction(event -> openTutorialLink(subTutorial));
+
         // Add completion listener
         completedCheckBox.setOnAction(event -> {
             if (currentUser != null) {
                 if (completedCheckBox.isSelected()) {
                     currentUser.addCompletedTutorial(subTutorial.getId());
                     subTutorialBox.setStyle("-fx-background-color: #F1F8E9;"); // Add background when checked
+
+                    // Update hyperlink color
+                    tutorialLink.setStyle("-fx-text-fill: #388E3C;"); // Darker green for completed items
                 } else {
                     currentUser.getCompletedTutorials().remove(subTutorial.getId());
                     subTutorialBox.setStyle(""); // Remove background when unchecked
+
+                    // Reset hyperlink color
+                    tutorialLink.setStyle(""); // Default color
                 }
 
                 // Update user in database
-                userRepository.updateUser(currentUser);
+                boolean updateSuccess = userRepository.updateUser(currentUser);
 
-                // Update progress display without rebuilding entire UI
-                updateProgress(parentTutorial);
+                if (updateSuccess) {
+                    // Update progress display without rebuilding entire UI
+                    updateProgress(parentTutorial);
+                    System.out.println("User progress updated successfully for tutorial: " + subTutorial.getId());
+                } else {
+                    System.err.println("Failed to update user progress for tutorial: " + subTutorial.getId());
+                }
             } else {
                 // If not logged in, show alert and uncheck
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -241,13 +277,7 @@ public class TutorialController extends BaseController implements Initializable 
             }
         });
 
-        // Create hyperlink to open the tutorial in browser
-        Hyperlink tutorialLink = new Hyperlink(subTutorial.getName());
-        if (isCompleted) {
-            tutorialLink.setStyle("-fx-text-fill: #388E3C;"); // Darker green for completed items
-        }
 
-        tutorialLink.setOnAction(event -> openTutorialLink(subTutorial));
 
         // Add tooltip with description
         Tooltip tooltip = new Tooltip(subTutorial.getDescription());

@@ -11,8 +11,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.example.demo1.controllers.problems.ProblemsController;
+import org.example.demo1.models.Problem;
+import org.example.demo1.models.ProblemCategory;
 import org.example.demo1.models.Tutorial;
 import org.example.demo1.models.User;
+import org.example.demo1.services.ProblemService;
 import org.example.demo1.services.TutorialService;
 import org.example.demo1.utils.UserSession;
 
@@ -76,10 +80,12 @@ public class DashboardController implements Initializable {
 
     private User currentUser;
     private TutorialService tutorialService;
+    private ProblemService problemService;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tutorialService = TutorialService.getInstance();
+        problemService = ProblemService.getInstance();
 
         // Check if user is logged in
         currentUser = UserSession.getInstance().getCurrentUser();
@@ -146,7 +152,12 @@ public class DashboardController implements Initializable {
         // Calculate problem completion percentage
         int completedProblems = currentUser.getCompletedProblems() != null ?
                 currentUser.getCompletedProblems().size() : 0;
-        int totalProblems = 20; // Dummy value - replace with actual count
+
+        // Count total problems from all categories
+        int totalProblems = 0;
+        for (ProblemCategory category : problemService.getAllCategories()) {
+            totalProblems += category.getProblems().size();
+        }
 
         int problemPercentage = totalProblems > 0 ?
                 (int)((double)completedProblems / totalProblems * 100) : 0;
@@ -186,6 +197,81 @@ public class DashboardController implements Initializable {
             recommendedTutorialLabel.setText("All tutorials completed!");
             recommendedTutorialProgress.setProgress(1.0);
         }
+
+        // Find a problem to recommend
+        Problem recommendedProblem = findRecommendedProblem();
+        if (recommendedProblem != null) {
+            // Set a clear recommended problem text with difficulty
+            recommendedProblemLabel.setText(recommendedProblem.getTitle() + " (" + recommendedProblem.getDifficulty() + ")");
+
+            // Change the practice button to include the category name
+            String categoryName = "";
+            for (ProblemCategory category : problemService.getAllCategories()) {
+                if (category.getProblems().contains(recommendedProblem)) {
+                    categoryName = category.getName();
+                    break;
+                }
+            }
+
+            if (!categoryName.isEmpty()) {
+                practiceButton.setText("Practice " + categoryName);
+            }
+
+            // Store the category ID for navigation
+            practiceButton.setUserData(getContainingCategoryId(recommendedProblem));
+        } else {
+            recommendedProblemLabel.setText("All problems completed!");
+            practiceButton.setText("Practice Problems");
+        }
+    }
+
+    private Problem findRecommendedProblem() {
+        if (currentUser == null) return null;
+
+        // Strategy 1: First, look for an "Easy" problem that hasn't been completed
+        for (ProblemCategory category : problemService.getAllCategories()) {
+            for (Problem problem : category.getProblems()) {
+                if (!currentUser.getCompletedProblems().contains(problem.getId()) &&
+                        problem.getDifficulty().equalsIgnoreCase("Easy")) {
+                    return problem;
+                }
+            }
+        }
+
+        // Strategy 2: Then look for any "Medium" problem
+        for (ProblemCategory category : problemService.getAllCategories()) {
+            for (Problem problem : category.getProblems()) {
+                if (!currentUser.getCompletedProblems().contains(problem.getId()) &&
+                        problem.getDifficulty().equalsIgnoreCase("Medium")) {
+                    return problem;
+                }
+            }
+        }
+
+        // Strategy 3: Finally, any uncompleted problem
+        for (ProblemCategory category : problemService.getAllCategories()) {
+            for (Problem problem : category.getProblems()) {
+                if (!currentUser.getCompletedProblems().contains(problem.getId())) {
+                    return problem;
+                }
+            }
+        }
+
+        return null; // All problems completed
+    }
+
+    private String getContainingCategoryId(Problem problem) {
+        if (problem == null) return null;
+
+        for (ProblemCategory category : problemService.getAllCategories()) {
+            for (Problem p : category.getProblems()) {
+                if (p.getId().equals(problem.getId())) {
+                    return category.getId();
+                }
+            }
+        }
+
+        return null;
     }
 
     private void enableAllButtons(boolean enable) {
@@ -272,9 +358,24 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void onPracticeButtonClick(ActionEvent event) {
-        // Go to problems page
-        if (UserSession.getInstance().isLoggedIn()) {
-            navigateToScreen("org/example/demo1/problems.fxml");
+        // Check if logged in
+        if (!UserSession.getInstance().isLoggedIn()) {
+            promptLogin();
+            return;
+        }
+
+        // Get the selected category from userData if available
+        String categoryId = (String) practiceButton.getUserData();
+
+        if (categoryId != null) {
+            // Set the selected category in ProblemsController
+            ProblemsController.setSelectedCategory(categoryId);
+
+            // Navigate to the problems page directly
+            navigateToScreen("org/example/demo1/problems_frontend/problems.fxml");
+        } else {
+            // Navigate to problems dashboard if no specific category
+            navigateToScreen("org/example/demo1/problems_frontend/problemsdashboard.fxml");
         }
     }
 

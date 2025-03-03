@@ -4,12 +4,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.text.Font?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.example.demo1.controllers.problems.ProblemDashboardController"
-            prefHeight="600.0" prefWidth="800.0">
+            prefHeight="1000.0" prefWidth="1500.0">
 
     <top>
         <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #3498db;">
@@ -17,74 +16,19 @@
                 <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
             <Button fx:id="backButton" text="Back to Dashboard" onAction="#onBackButtonClick"/>
-            <Label text="Practice Problems - Data Structures" textFill="WHITE" style="-fx-font-family: 'Arial'; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+            <Label text="Practice Problems" textFill="WHITE" style="-fx-font-size: 20px;"/>
         </HBox>
     </top>
 
     <center>
-        <VBox alignment="CENTER" spacing="30">
-            <padding>
-                <Insets top="40" right="40" bottom="40" left="40"/>
-            </padding>
-
-            <Text text="Select a Data Structure to Solve Problems" style="-fx-font-size: 24px;"/>
-            <Text text="Click on a category to explore problems" style="-fx-font-size: 16px;"/>
-
-            <GridPane alignment="CENTER" hgap="30" vgap="30">
-                <columnConstraints>
-                    <ColumnConstraints halignment="CENTER" />
-                    <ColumnConstraints halignment="CENTER" />
-                    <ColumnConstraints halignment="CENTER" />
-                </columnConstraints>
-
-                <rowConstraints>
-                    <RowConstraints valignment="CENTER" />
-                    <RowConstraints valignment="CENTER" />
-                </rowConstraints>
-
-                <!-- Arrays Button -->
-                <VBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                    <Button fx:id="arraysButton" text="Arrays" onAction="#onArraysClick"
-                            prefWidth="150" prefHeight="100"/>
-                    <Label text="Array Problems" style="-fx-font-size: 14px;"/>
-                </VBox>
-
-                <!-- Linked Lists Button -->
-                <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                    <Button fx:id="linkedListsButton" text="Linked Lists" onAction="#onLinkedListsClick"
-                            prefWidth="150" prefHeight="100"/>
-                    <Label text="Linked List Problems" style="-fx-font-size: 14px;"/>
-                </VBox>
-
-                <!-- Stacks Button -->
-                <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0">
-                    <Button fx:id="stacksButton" text="Stacks" onAction="#onStacksClick"
-                            prefWidth="150" prefHeight="100"/>
-                    <Label text="Stack Problems" style="-fx-font-size: 14px;"/>
-                </VBox>
-
-                <!-- Queues Button -->
-                <VBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                    <Button fx:id="queuesButton" text="Queues" onAction="#onQueuesClick"
-                            prefWidth="150" prefHeight="100"/>
-                    <Label text="Queue Problems" style="-fx-font-size: 14px;"/>
-                </VBox>
-
-                <!-- Trees Button -->
-                <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <Button fx:id="treesButton" text="Trees" onAction="#onTreesClick"
-                            prefWidth="150" prefHeight="100"/>
-                    <Label text="Tree Problems" style="-fx-font-size: 14px;"/>
-                </VBox>
-
-                <!-- Graphs Button -->
-                <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                    <Button fx:id="graphsButton" text="Graphs" onAction="#onGraphsClick"
-                            prefWidth="150" prefHeight="100"/>
-                    <Label text="Graph Problems" style="-fx-font-size: 14px;"/>
-                </VBox>
-            </GridPane>
-        </VBox>
+        <ScrollPane fitToWidth="true">
+            <VBox fx:id="categoriesContainer" spacing="20">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                <!-- Categories will be loaded dynamically -->
+            </VBox>
+        </ScrollPane>
     </center>
 
     <bottom>
