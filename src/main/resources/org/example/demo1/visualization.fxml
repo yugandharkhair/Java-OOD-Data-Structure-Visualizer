@@ -4,34 +4,117 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.example.demo1.controllers.VisualizationController"
-            prefHeight="600.0" prefWidth="800.0">
+            prefHeight="1000.0" prefWidth="1500.0">
 
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #3498db;">
+        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #304ffe;">
             <padding>
                 <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
-            <Button fx:id="backButton" text="Back to Dashboard" onAction="#onBackButtonClick"/>
-            <Label text="Visualization Screen" textFill="WHITE" style="-fx-font-size: 20px;"/>
+            <Button fx:id="backButton" text="Back" onAction="#onBackButtonClick"
+                    style="-fx-background-color: white; -fx-text-fill: #304ffe; -fx-font-weight: bold; -fx-background-radius: 3;"/>
+            <Label text="Data Structures" textFill="WHITE" style="-fx-font-size: 20px;"/>
         </HBox>
     </top>
 
     <center>
-        <VBox alignment="CENTER">
-            <Label text="Data Structure Visualization Placeholder" style="-fx-font-size: 24px;"/>
+        <VBox alignment="CENTER" spacing="30">
+            <padding>
+                <Insets top="40" right="40" bottom="40" left="40"/>
+            </padding>
+
+            <GridPane alignment="CENTER" hgap="30" vgap="30">
+                <columnConstraints>
+                    <ColumnConstraints halignment="CENTER" />
+                    <ColumnConstraints halignment="CENTER" />
+                    <ColumnConstraints halignment="CENTER" />
+                </columnConstraints>
+
+                <rowConstraints>
+                    <RowConstraints valignment="CENTER" />
+                    <RowConstraints valignment="CENTER" />
+                </rowConstraints>
+
+                <!-- Array Button -->
+                <VBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <Button fx:id="arrayButton" text="Arrays" onAction="#onArrayClick"
+                            prefWidth="150" prefHeight="100">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Button>
+                    <Label text="Arrays" style="-fx-font-size: 14px;"/>
+                </VBox>
+
+                <!-- LinkedList Button -->
+                <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <Button fx:id="linkedListButton" text="Linked Lists" onAction="#onLinkedListClick"
+                            prefWidth="150" prefHeight="100">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Button>
+                    <Label text="Linked Lists" style="-fx-font-size: 14px;"/>
+                </VBox>
+
+                <!-- Stack Button -->
+                <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                    <Button fx:id="stackButton" text="Stacks" onAction="#onStackClick"
+                            prefWidth="150" prefHeight="100">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Button>
+                    <Label text="Stacks" style="-fx-font-size: 14px;"/>
+                </VBox>
+
+                <!-- Queue Button -->
+                <VBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <Button fx:id="queueButton" text="Queues" onAction="#onQueueClick"
+                            prefWidth="150" prefHeight="100">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Button>
+                    <Label text="Queues" style="-fx-font-size: 14px;"/>
+                </VBox>
+
+                <!-- Tree Button -->
+                <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <Button fx:id="treeButton" text="Trees" onAction="#onTreeClick"
+                            prefWidth="150" prefHeight="100">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Button>
+                    <Label text="Trees" style="-fx-font-size: 14px;"/>
+                </VBox>
+
+                <!-- Graph Button -->
+                <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                    <Button fx:id="graphButton" text="Graphs" onAction="#onGraphClick"
+                            prefWidth="150" prefHeight="100">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Button>
+                    <Label text="Graphs" style="-fx-font-size: 14px;"/>
+                </VBox>
+            </GridPane>
         </VBox>
     </center>
 
     <bottom>
-        <HBox alignment="CENTER" style="-fx-background-color: #f4f4f4;">
+        <HBox alignment="CENTER" style="-fx-background-color: #eeeeee; -fx-border-color: #e0e0e0; -fx-border-width: 1 0 0 0;">
             <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
+                <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
-            <Text text="© 2025 Data Structures Visualizer Team" style="-fx-font-size: 12px;"/>
+            <Label text="© 2025 Data Structures Visualizer Team" style="-fx-font-size: 12px; -fx-text-fill: #757575;"/>
         </HBox>
     </bottom>
 

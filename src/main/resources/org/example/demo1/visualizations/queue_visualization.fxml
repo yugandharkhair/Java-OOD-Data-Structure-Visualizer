@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.demo1.controllers.visualizations.QueueVisualizationController"
+            prefHeight="1000.0" prefWidth="1500.0">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #304ffe;">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Button fx:id="backButton" text="Back" onAction="#onBackButtonClick"
+                    style="-fx-background-color: white; -fx-text-fill: #304ffe; -fx-font-weight: bold; -fx-background-radius: 3;"/>
+            <Label text="Queue" textFill="WHITE" style="-fx-font-size: 20px;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" spacing="20">
+            <HBox alignment="CENTER">
+                <!-- Back Label (Left) -->
+                <Label fx:id="backLabel" text="Back " style="-fx-font-size: 14px;"/>
+
+                <!-- Queue Container -->
+                <HBox fx:id="queueContainer"
+                      alignment="CENTER"
+                      spacing="3"
+                      prefHeight="70"
+                      prefWidth="80"
+                      style="-fx-background-color: #f4f4f4; -fx-padding: 15; -fx-border-color: #82ccdd transparent #82ccdd transparent; -fx-border-width: 2px;">
+                </HBox>
+
+                <!-- Front Label (Right) -->
+                <Label fx:id="frontLabel" text=" Front" style="-fx-font-size: 14px;"/>
+            </HBox>
+        </VBox>
+    </center>
+
+    <bottom>
+        <!-- Controls -->
+        <VBox alignment="CENTER" style="-fx-background-color: #f4f4f4;">
+            <Text text="" style="-fx-font-size: 12px;"/>
+            <HBox alignment="CENTER" spacing="10">
+                <TextField fx:id="inputField" promptText="Enter element" maxWidth="95"/>
+                <Button fx:id="enqueueButton" text="Enqueue"
+                        style="-fx-background-color: #304ffe; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 3;"/>
+                <Button fx:id="dequeueButton" text="Dequeue"
+                        style="-fx-background-color: #304ffe; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 3;"/>
+                <Button fx:id="peekButton" text="Peek"
+                        style="-fx-background-color: #304ffe; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 3;"/>
+            </HBox>
+            <Text text="" style="-fx-font-size: 12px;"/>
+            <HBox alignment="CENTER" style="-fx-background-color: #eeeeee; -fx-border-color: #e0e0e0; -fx-border-width: 1 0 0 0;">
+                <padding>
+                    <Insets top="15" right="15" bottom="15" left="15"/>
+                </padding>
+                <Label text="© 2025 Data Structures Visualizer Team" style="-fx-font-size: 12px; -fx-text-fill: #757575;"/>
+            </HBox>
+        </VBox>
+    </bottom>
+
+</BorderPane>
