@@ -27,7 +27,7 @@ public class HelloApplication extends Application {
         // Use the correct path to match your project structure
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/org/example/demo1/dashboard.fxml"));
 
-        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+        Scene scene = new Scene(fxmlLoader.load(), 1500, 1000);
         stage.setTitle("Data Structures Visualizer");
         stage.setScene(scene);
         stage.show();

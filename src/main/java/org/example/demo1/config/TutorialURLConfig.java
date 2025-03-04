@@ -31,13 +31,13 @@ public class TutorialURLConfig {
         tutorialURLs.put("stacks_intro", "https://www.geeksforgeeks.org/stack-data-structure/");
         tutorialURLs.put("stacks_operations", "https://www.geeksforgeeks.org/stack-data-structure-introduction-program/");
         tutorialURLs.put("stacks_implementation", "https://www.geeksforgeeks.org/stack-data-structure-introduction-program/");
-        tutorialURLs.put("stacks_applications", "https://www.geeksforgeeks.org/applications-of-stack-data-structure/");
+        tutorialURLs.put("stacks_applications", "https://www.geeksforgeeks.org/applications-advantages-and-disadvantages-of-stack/");
 
         // Queue tutorials
         tutorialURLs.put("queues_intro", "https://www.geeksforgeeks.org/queue-data-structure/");
         tutorialURLs.put("queues_operations", "https://www.geeksforgeeks.org/queue-set-1introduction/");
         tutorialURLs.put("queues_implementation", "https://www.geeksforgeeks.org/queue-linked-list-implementation/");
-        tutorialURLs.put("queues_types", "https://www.geeksforgeeks.org/types-of-queues-in-data-structure/");
+        tutorialURLs.put("queues_types", "https://www.geeksforgeeks.org/different-types-of-queues-and-its-applications/");
         tutorialURLs.put("queues_applications", "https://www.geeksforgeeks.org/applications-of-queue-data-structure/");
 
         // Tree tutorials
