@@ -45,12 +45,13 @@ public class BSTVisualizationController {
     private void insertNode() {
         try {
             int value = Integer.parseInt(inputField.getText());
-            root = insertRecursively(root, value, (int) (bstPane.getWidth() / 2), 50, null);
+            root = insertRecursively(root, value, (int) (bstPane.getWidth() / 2), 50, null, 0);  // Pass depth as 0
             inputField.clear();
         } catch (NumberFormatException e) {
             inputField.setText("Invalid");
         }
     }
+
 
     private void searchNode() {
         try {
@@ -144,22 +145,37 @@ public class BSTVisualizationController {
     }
 
     private static final String HIGHLIGHT_STYLE = "-fx-background-color: #FBDF82; " +
-            "-fx-border-radius: 10px; " +  // Maintain rounded corners
+            "-fx-background-radius: 50%; " +  // Makes it a perfect circle
+            "-fx-border-radius: 50%; " +  // Ensures border follows the circle shape
+            "-fx-border-color: transparent; " +  // Removes the border
             "-fx-font-size: 18px; " +
             "-fx-font-weight: bold; " +
-            "-fx-text-fill: black; " +  // Ensures visibility on yellow background
+            "-fx-text-fill: black; " +  // Text stays readable
             "-fx-alignment: center; " +  // Keep text properly aligned
-            "-fx-padding: 0;";  // Remove unnecessary space around text
+            "-fx-padding: 0; " +  // Ensures text does not get distorted
+            "-fx-min-width: 60px; " +  // Fix width to maintain circular shape
+            "-fx-min-height: 60px; " +  // Fix height to maintain circular shape
+            "-fx-max-width: 60px; " +
+            "-fx-max-height: 60px; ";
 
     private static final String DEFAULT_STYLE = "-fx-background-color: LIGHTBLUE; " +
-            "-fx-border-radius: 10px; " +  // Maintain rounded corners
+            "-fx-background-radius: 50%; " +  // Makes it a perfect circle
+            "-fx-border-radius: 50%; " +  // Ensures border follows the circle shape
+            "-fx-border-color: transparent; " +  // Removes the border
             "-fx-font-size: 18px; " +
             "-fx-font-weight: bold; " +
-            "-fx-text-fill: black; " +  // Ensures visibility on yellow background
+            "-fx-text-fill: black; " +  // Text stays readable
             "-fx-alignment: center; " +  // Keep text properly aligned
-            "-fx-padding: 0;";  // Remove unnecessary space around text
+            "-fx-padding: 0; " +  // Ensures text does not get distorted
+            "-fx-min-width: 60px; " +  // Fix width to maintain circular shape
+            "-fx-min-height: 60px; " +  // Fix height to maintain circular shape
+            "-fx-max-width: 60px; " +
+            "-fx-max-height: 60px; ";
 
-    private BSTNode insertRecursively(BSTNode root, int value, int x, int y, BSTNode parent) {
+    private BSTNode insertRecursively(BSTNode root, int value, int x, int y, BSTNode parent, int depth) {
+        int horizontalSpacing = 180 - (depth * 50); // Increase spacing with depth
+        int verticalSpacing = 120 + (depth * 15);; // Increase vertical distance between levels
+
         if (root == null) {
             root = new BSTNode(value, x, y);
             bstPane.getChildren().add(root.group);
@@ -184,9 +200,9 @@ public class BSTVisualizationController {
         }
 
         if (value < root.value) {
-            root.left = insertRecursively(root.left, value, x - 100, y + 80, root);
+            root.left = insertRecursively(root.left, value, x - horizontalSpacing, y + verticalSpacing, root, depth + 1);
         } else if (value > root.value) {
-            root.right = insertRecursively(root.right, value, x + 100, y + 80, root);
+            root.right = insertRecursively(root.right, value, x + horizontalSpacing, y + verticalSpacing, root, depth + 1);
         }
 
         return root;
@@ -273,15 +289,21 @@ public class BSTVisualizationController {
             dataBox = new TextField(String.valueOf(value));
             dataBox.setPrefSize(60, 60);
             dataBox.setStyle(
-                    "-fx-background-color: LIGHTBLUE; " +
-                            "-fx-border-color: transparent; " +
-                            "-fx-border-radius: 10px; " +  // Keep rounded edges
+                    "-fx-background-color: LIGHTBLUE; " +  // Fully blue background
+                            "-fx-background-radius: 50%; " +  // Makes it a perfect circle
+                            "-fx-border-radius: 50%; " +  // Ensures border follows the circle shape
+                            "-fx-border-color: transparent; " +  // Removes the border
                             "-fx-font-size: 18px; " +
                             "-fx-font-weight: bold; " +
-                            "-fx-text-fill: black; " +
-                            "-fx-alignment: center; " + // Ensures the text is centered
-                            "-fx-padding: 0;" // Remove extra spacing around text
+                            "-fx-text-fill: black; " +  // Text stays readable
+                            "-fx-alignment: center; " +  // Keep text properly aligned
+                            "-fx-padding: 0; " +  // Ensures text does not get distorted
+                            "-fx-min-width: 60px; " +  // Fix width to maintain circular shape
+                            "-fx-min-height: 60px; " +  // Fix height to maintain circular shape
+                            "-fx-max-width: 60px; " +
+                            "-fx-max-height: 60px; "
             );
+
             dataBox.setEditable(false);
 
             this.group = new Group(dataBox);

@@ -23,9 +23,9 @@
     <center>
         <VBox alignment="CENTER" spacing="20">
         <!-- Pane for displaying linked list nodes -->
-        <Pane fx:id="linkedListPane"
-              prefWidth="1000" prefHeight="250"
-              style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-width: 2px;"/>
+            <Pane fx:id="linkedListPane"
+                  prefWidth="1000" prefHeight="250"
+                  style="-fx-background-color: white; -fx-border-color: #ccc; -fx-border-width: 2px;"/>
         </VBox>
     </center>
 

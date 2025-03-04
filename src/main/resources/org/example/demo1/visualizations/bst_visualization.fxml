@@ -20,8 +20,10 @@
     </top>
 
     <center>
-        <Pane fx:id="bstPane" prefHeight="600" prefWidth="1000"
-              style="-fx-background-color: #f4f4f4;"/>
+        <VBox alignment="CENTER" spacing="20">
+            <Pane fx:id="bstPane" prefHeight="600" prefWidth="1000"
+                  style="-fx-background-color: #f4f4f4;"/>
+        </VBox>
     </center>
 
     <bottom>
