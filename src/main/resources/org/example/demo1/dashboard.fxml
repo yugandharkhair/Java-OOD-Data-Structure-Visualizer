@@ -99,7 +99,7 @@
                         <Region VBox.vgrow="ALWAYS" />
 
                         <Button fx:id="visualizationButton" text="View Visualizations" onAction="#onVisualizationButtonClick"
-                                style="-fx-background-color: #7c4dff; -fx-text-fill: white; -fx-background-radius: 4;"
+                                style="-fx-background-color: #7c4dff; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-radius: 4;"
                                 maxWidth="Infinity"/>
                     </VBox>
 
@@ -120,7 +120,7 @@
                         <Region VBox.vgrow="ALWAYS" />
 
                         <Button fx:id="tutorialButton" text="Start Learning" onAction="#onTutorialButtonClick"
-                                style="-fx-background-color: #2196f3; -fx-text-fill: white; -fx-background-radius: 4;"
+                                style="-fx-background-color: #2196f3; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-radius: 4;"
                                 maxWidth="Infinity"/>
                     </VBox>
 
@@ -141,7 +141,7 @@
                         <Region VBox.vgrow="ALWAYS" />
 
                         <Button fx:id="problemsButton" text="Solve Problems" onAction="#onProblemsButtonClick"
-                                style="-fx-background-color: #43a047; -fx-text-fill: white; -fx-background-radius: 4;"
+                                style="-fx-background-color: #43a047; -fx-font-weight: bold; -fx-text-fill: white; -fx-background-radius: 4;"
                                 maxWidth="Infinity"/>
                     </VBox>
                 </GridPane>

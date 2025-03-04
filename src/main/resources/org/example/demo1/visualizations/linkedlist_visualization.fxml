@@ -11,11 +11,12 @@
             prefHeight="1000.0" prefWidth="1500.0">
 
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #3498db;">
+        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #304ffe;">
             <padding>
                 <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
-            <Button fx:id="backButton" text="Back to Dashboard" onAction="#onBackButtonClick"/>
+            <Button fx:id="backButton" text="Back" onAction="#onBackButtonClick"
+                    style="-fx-background-color: white; -fx-text-fill: #304ffe; -fx-font-weight: bold; -fx-background-radius: 3;"/>
             <Label text="Linked List" textFill="WHITE" style="-fx-font-size: 20px;"/>
         </HBox>
     </top>
@@ -31,14 +32,25 @@
 
     <bottom>
         <!-- Controls -->
-        <VBox alignment="CENTER" spacing="10" style="-fx-background-color: #f4f4f4; -fx-padding: 15;">
+        <VBox alignment="CENTER" style="-fx-background-color: #f4f4f4;">
             <HBox alignment="CENTER" spacing="10">
                 <TextField fx:id="inputField" promptText="Enter element" maxWidth="95"/>
-                <Button fx:id="insertButton" text="Insert Node"/>
-                <Button fx:id="deleteFirstButton" text="Delete First Node"/>
-                <Button fx:id="deleteLastButton" text="Delete Last Node"/>
-                <Button fx:id="deletePositionButton" text="Delete at Position:"/>
+                <Button fx:id="insertButton" text="Insert Node"
+                        style="-fx-background-color: #304ffe; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 3;"/>
+                <Button fx:id="deleteFirstButton" text="Delete First Node"
+                        style="-fx-background-color: #304ffe; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 3;"/>
+                <Button fx:id="deleteLastButton" text="Delete Last Node"
+                        style="-fx-background-color: #304ffe; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 3;"/>
+                <Button fx:id="deletePositionButton" text="Delete at Position:"
+                        style="-fx-background-color: #304ffe; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 3;"/>
                 <TextField fx:id="positionField" promptText="Enter position" maxWidth="90"/>
+            </HBox>
+            <Text text="" style="-fx-font-size: 12px;"/>
+            <HBox alignment="CENTER" style="-fx-background-color: #eeeeee; -fx-border-color: #e0e0e0; -fx-border-width: 1 0 0 0;">
+                <padding>
+                    <Insets top="15" right="15" bottom="15" left="15"/>
+                </padding>
+                <Label text="© 2025 Data Structures Visualizer Team" style="-fx-font-size: 12px; -fx-text-fill: #757575;"/>
             </HBox>
         </VBox>
     </bottom>

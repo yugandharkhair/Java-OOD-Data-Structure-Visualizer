@@ -11,11 +11,12 @@
             prefHeight="1000.0" prefWidth="1500.0">
 
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #3498db;">
+        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #304ffe;">
             <padding>
                 <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
-            <Button fx:id="backButton" text="Back to Dashboard" onAction="#onBackButtonClick"/>
+            <Button fx:id="backButton" text="Back" onAction="#onBackButtonClick"
+                    style="-fx-background-color: white; -fx-text-fill: #304ffe; -fx-font-weight: bold; -fx-background-radius: 3;"/>
             <Label text="Tutorials Library" textFill="WHITE" style="-fx-font-size: 20px;"/>
         </HBox>
     </top>
@@ -32,11 +33,11 @@
     </center>
 
     <bottom>
-        <HBox alignment="CENTER" style="-fx-background-color: #f4f4f4;">
+        <HBox alignment="CENTER" style="-fx-background-color: #eeeeee; -fx-border-color: #e0e0e0; -fx-border-width: 1 0 0 0;">
             <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
+                <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
-            <Text text="© 2025 Data Structures Visualizer Team" style="-fx-font-size: 12px;"/>
+            <Label text="© 2025 Data Structures Visualizer Team" style="-fx-font-size: 12px; -fx-text-fill: #757575;"/>
         </HBox>
     </bottom>
 

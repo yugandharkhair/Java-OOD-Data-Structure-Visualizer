@@ -12,11 +12,12 @@
             prefHeight="1000.0" prefWidth="1500.0">
 
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #3498db;">
+        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #304ffe;">
             <padding>
                 <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
-            <Button fx:id="backButton" text="Back to Dashboard" onAction="#onBackButtonClick"/>
+            <Button fx:id="backButton" text="Back" onAction="#onBackButtonClick"
+                    style="-fx-background-color: white; -fx-text-fill: #304ffe; -fx-font-weight: bold; -fx-background-radius: 3;"/>
             <Label text="Data Structures" textFill="WHITE" style="-fx-font-size: 20px;"/>
         </HBox>
     </top>
@@ -26,8 +27,6 @@
             <padding>
                 <Insets top="40" right="40" bottom="40" left="40"/>
             </padding>
-
-            <Text text="Select a data structure" style="-fx-font-size: 16px;"/>
 
             <GridPane alignment="CENTER" hgap="30" vgap="30">
                 <columnConstraints>
