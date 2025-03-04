@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.demo1.controllers.visualizations.GraphVisualizationController"
+            prefHeight="600.0" prefWidth="800.0">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #3498db;">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Button fx:id="backButton" text="Back" onAction="#onBackButtonClick"/>
+            <Label text="Graph Traversal" textFill="WHITE" style="-fx-font-size: 20px;"/>
+        </HBox>
+    </top>
+
+    <!-- Graph Pane (Fixed Directed Graph) -->
+    <center>
+        <VBox spacing="20" alignment="CENTER">
+            <HBox alignment="CENTER" spacing="20">
+                <CheckBox fx:id="arrowCheckbox" text="Directed Graph" selected="true"/>
+                <CheckBox fx:id="weightedGraphCheckbox" text="Weighted Graph" selected="false" />
+            </HBox>
+            <HBox alignment="CENTER">
+                <Pane fx:id="graphPane"/>
+            </HBox>
+            <Text fx:id="bfsLabel" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+        </VBox>
+    </center>
+
+    <bottom>
+        <VBox alignment="CENTER" style="-fx-background-color: #f4f4f4;">
+            <Text text="Start traversal from vertex D" style="-fx-font-size: 14px;"/>
+            <Text text="" style="-fx-font-size: 12px;"/>
+            <HBox alignment="CENTER" spacing="10">
+                <Button text="BFS" fx:id="bfsButton" style="-fx-font-size: 14px;" />
+                <Button text="DFS" fx:id="dfsButton" style="-fx-font-size: 14px;" />
+            </HBox>
+            <Text text="" style="-fx-font-size: 12px;"/>
+        </VBox>
+    </bottom>
+</BorderPane>

@@ -48,7 +48,7 @@ public class VisualizationController {
 
     @FXML
     private void onGraphClick(ActionEvent event) {
-        navigateToScreen("org/example/demo1/visualizations/array_visualization.fxml", event);
+        navigateToScreen("org/example/demo1/visualizations/graph_visualization.fxml", event);
     }
 
 
