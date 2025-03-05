@@ -172,7 +172,7 @@
                                     <Insets top="10" right="0" bottom="0" left="0"/>
                                 </padding>
                                 <Button fx:id="continueButton" text="Continue" onAction="#onContinueLearningClick"
-                                        style="-fx-background-color: #2196f3; -fx-text-fill: white; -fx-background-radius: 4;"/>
+                                        style="-fx-background-color: #2196f3; -fx-text-fill: white; -fx-background-radius: 4; -fx-font-weight: bold;"/>
                             </HBox>
                         </VBox>
 
@@ -192,7 +192,7 @@
                                     <Insets top="10" right="0" bottom="0" left="0"/>
                                 </padding>
                                 <Button fx:id="practiceButton" text="Practice" onAction="#onPracticeButtonClick"
-                                        style="-fx-background-color: #43a047; -fx-text-fill: white; -fx-background-radius: 4;"/>
+                                        style="-fx-background-color: #43a047; -fx-text-fill: white; -fx-background-radius: 4; -fx-font-weight: bold;"/>
                             </HBox>
                         </VBox>
                     </HBox>

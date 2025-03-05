@@ -11,17 +11,18 @@
             prefHeight="1000.0" prefWidth="1500.0">
 
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #3498db;">
+        <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #304ffe;">
             <padding>
                 <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
-            <Button fx:id="backButton" text="Back to Dashboard" onAction="#onBackButtonClick"/>
+            <Button fx:id="backButton" text="Back" onAction="#onBackButtonClick"
+                    style="-fx-background-color: white; -fx-text-fill: #304ffe; -fx-font-weight: bold; -fx-background-radius: 3;"/>
             <Label text="User Profile" textFill="WHITE" style="-fx-font-size: 20px;"/>
             <Region HBox.hgrow="ALWAYS" />
             <Button fx:id="viewProgressButton" text="View My Progress" onAction="#onViewProgressButtonClick"
-                    style="-fx-background-color: white; -fx-text-fill: #3498db; -fx-font-weight: bold;"/>
+                    style="-fx-background-color: white; -fx-text-fill: #304ffe; -fx-font-weight: bold;"/>
             <Button fx:id="logoutButton" text="Logout" onAction="#onLogoutButtonClick"
-                    style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
+                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;"/>
         </HBox>
     </top>
 
@@ -54,8 +55,7 @@
                         </VBox>
 
                         <Button text="Update Profile" onAction="#onUpdateProfileClick"
-                                style="-fx-background-color: #3498db; -fx-text-fill: white;"
-                                maxWidth="200"/>
+                                style="-fx-background-color: #304ffe; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 3;"/>
 
                         <Label fx:id="updateMessage" />
                     </VBox>
@@ -84,9 +84,7 @@
                         </VBox>
 
                         <Button text="Change Password" onAction="#onChangePasswordClick"
-                                style="-fx-background-color: #3498db; -fx-text-fill: white;"
-                                maxWidth="200"/>
-
+                                style="-fx-background-color: #304ffe; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 3;"/>
                         <Label fx:id="passwordMessage" />
                     </VBox>
                 </TitledPane>
