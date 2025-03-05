@@ -124,8 +124,8 @@ public class BSTVisualizationController {
 
         node.dataBox.setStyle(DEFAULT_STYLE);
 
-        if (node.leftLine != null) node.leftLine.setStroke(Color.LIGHTBLUE);
-        if (node.rightLine != null) node.rightLine.setStroke(Color.LIGHTBLUE);
+        if (node.leftLine != null) node.leftLine.setStroke(Color.web("#cb64ec"));
+        if (node.rightLine != null) node.rightLine.setStroke(Color.web("#cb64ec"));
 
         resetTreeColors(node.left);
         resetTreeColors(node.right);
@@ -148,28 +148,28 @@ public class BSTVisualizationController {
             "-fx-background-radius: 50%; " +  // Makes it a perfect circle
             "-fx-border-radius: 50%; " +  // Ensures border follows the circle shape
             "-fx-border-color: transparent; " +  // Removes the border
-            "-fx-font-size: 18px; " +
+            "-fx-font-size: 22px; " +
             "-fx-font-weight: bold; " +
-            "-fx-text-fill: black; " +  // Text stays readable
             "-fx-alignment: center; " +  // Keep text properly aligned
             "-fx-padding: 0; " +  // Ensures text does not get distorted
             "-fx-min-width: 60px; " +  // Fix width to maintain circular shape
             "-fx-min-height: 60px; " +  // Fix height to maintain circular shape
             "-fx-max-width: 60px; " +
+            "-fx-text-fill: white;" +
             "-fx-max-height: 60px; ";
 
-    private static final String DEFAULT_STYLE = "-fx-background-color: LIGHTBLUE; " +
+    private static final String DEFAULT_STYLE = "-fx-background-color: #cb64ec; " +
             "-fx-background-radius: 50%; " +  // Makes it a perfect circle
             "-fx-border-radius: 50%; " +  // Ensures border follows the circle shape
             "-fx-border-color: transparent; " +  // Removes the border
-            "-fx-font-size: 18px; " +
+            "-fx-font-size: 22px; " +
             "-fx-font-weight: bold; " +
-            "-fx-text-fill: black; " +  // Text stays readable
             "-fx-alignment: center; " +  // Keep text properly aligned
             "-fx-padding: 0; " +  // Ensures text does not get distorted
             "-fx-min-width: 60px; " +  // Fix width to maintain circular shape
             "-fx-min-height: 60px; " +  // Fix height to maintain circular shape
             "-fx-max-width: 60px; " +
+            "-fx-text-fill: white;" +
             "-fx-max-height: 60px; ";
 
     private BSTNode insertRecursively(BSTNode root, int value, int x, int y, BSTNode parent, int depth) {
@@ -188,7 +188,7 @@ public class BSTVisualizationController {
 
                 Line line = new Line(parentX, parentY, childX, childY);
                 line.setStrokeWidth(2);
-                line.setStroke(Color.LIGHTBLUE);
+                line.setStroke(Color.web("#cb64ec"));
                 bstPane.getChildren().add(line);
 
                 if (value < parent.value) parent.leftLine = line;
@@ -289,19 +289,19 @@ public class BSTVisualizationController {
             dataBox = new TextField(String.valueOf(value));
             dataBox.setPrefSize(60, 60);
             dataBox.setStyle(
-                    "-fx-background-color: LIGHTBLUE; " +  // Fully blue background
+                    "-fx-background-color: #cb64ec; " +  // Fully blue background
                             "-fx-background-radius: 50%; " +  // Makes it a perfect circle
                             "-fx-border-radius: 50%; " +  // Ensures border follows the circle shape
                             "-fx-border-color: transparent; " +  // Removes the border
-                            "-fx-font-size: 18px; " +
+                            "-fx-font-size: 22px; " +
                             "-fx-font-weight: bold; " +
-                            "-fx-text-fill: black; " +  // Text stays readable
                             "-fx-alignment: center; " +  // Keep text properly aligned
                             "-fx-padding: 0; " +  // Ensures text does not get distorted
                             "-fx-min-width: 60px; " +  // Fix width to maintain circular shape
                             "-fx-min-height: 60px; " +  // Fix height to maintain circular shape
                             "-fx-max-width: 60px; " +
-                            "-fx-max-height: 60px; "
+                            "-fx-max-height: 60px; " +
+                            "-fx-text-fill: white;"
             );
 
             dataBox.setEditable(false);

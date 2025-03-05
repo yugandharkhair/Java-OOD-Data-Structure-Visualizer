@@ -16,8 +16,8 @@
             <padding>
                 <Insets top="15" right="15" bottom="15" left="15"/>
             </padding>
-            <Button fx:id="backButton" text="Back to Dashboard" onAction="#onBackButtonClick"
-                    style="-fx-background-color: rgba(255,255,255,0.2); -fx-text-fill: white; -fx-background-radius: 4;"/>
+            <Button fx:id="backButton" text="Back" onAction="#onBackButtonClick"
+                    style="-fx-background-color: white; -fx-text-fill: #304ffe; -fx-font-weight: bold; -fx-background-radius: 3;"/>
             <Label text="Learning Progress Dashboard" textFill="WHITE" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
         </HBox>
     </top>

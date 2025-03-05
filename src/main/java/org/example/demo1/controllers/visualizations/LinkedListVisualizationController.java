@@ -62,12 +62,12 @@ public class LinkedListVisualizationController {
         // Empty Box 1
         TextField emptyBox1 = new TextField("Head");
         emptyBox1.setPrefSize(BOX_WIDTH, BOX_HEIGHT);
-        emptyBox1.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-font-size: 16px; -fx-alignment: center;");
+        emptyBox1.setStyle("-fx-background-color: white; -fx-font-weight: bold; -fx-border-color: black; -fx-font-size: 16px; -fx-alignment: center;");
 
         // Empty Box 2
         TextField emptyBox2 = new TextField("--->");
         emptyBox2.setPrefSize(BOX_WIDTH, BOX_HEIGHT);
-        emptyBox2.setStyle("-fx-background-color: white; -fx-border-color: transparent; -fx-font-size: 16px; -fx-alignment: center;");
+        emptyBox2.setStyle("-fx-background-color: white; -fx-font-weight: bold; -fx-border-color: transparent; -fx-font-size: 16px; -fx-alignment: center;");
 
         // Add them together
         initialBox.getChildren().addAll(emptyBox1, emptyBox2);
@@ -92,21 +92,21 @@ public class LinkedListVisualizationController {
         // Data Box (Editable & Blue)
         TextField dataBox = new TextField(value);
         dataBox.setPrefSize(BOX_WIDTH, BOX_HEIGHT);
-        dataBox.setStyle("-fx-background-color: LIGHTBLUE; -fx-border-color: black; -fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center;");
+        dataBox.setStyle("-fx-background-color: #7c4dff; -fx-border-color: black; -fx-font-size: 22px; -fx-font-weight: bold; -fx-alignment: center; -fx-text-fill: white;");
 
         // Pointer Box 1 (White & Empty)
         TextField pointerBox1 = new TextField("Next");
         pointerBox1.setPrefSize(BOX_WIDTH, BOX_HEIGHT);
-        pointerBox1.setStyle("-fx-background-color: white; -fx-border-color: black black black transparent; -fx-font-size: 16px; -fx-alignment: center;");
+        pointerBox1.setStyle("-fx-background-color: white; -fx-font-weight: bold; -fx-border-color: black black black transparent; -fx-font-size: 16px; -fx-alignment: center;");
 
         // Pointer Box 2 (White & Empty)
         TextField pointerBox2 = new TextField("--->");
         pointerBox2.setPrefSize(BOX_WIDTH, BOX_HEIGHT);
-        pointerBox2.setStyle("-fx-background-color: white; -fx-border-color: transparent; -fx-font-size: 16px; -fx-alignment: center;");
+        pointerBox2.setStyle("-fx-background-color: white; -fx-font-weight: bold; -fx-border-color: transparent; -fx-font-size: 16px; -fx-alignment: center;");
 
         TextField emptyBox3 = new TextField("Null");
         emptyBox3.setPrefSize(BOX_WIDTH, BOX_HEIGHT);
-        emptyBox3.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-font-size: 16px; -fx-alignment: center;");
+        emptyBox3.setStyle("-fx-background-color: white; -fx-font-weight: bold; -fx-border-color: black; -fx-font-size: 16px; -fx-alignment: center;");
 
         // Add all boxes together
         nodeContainer.getChildren().addAll(dataBox, pointerBox1, pointerBox2, emptyBox3);

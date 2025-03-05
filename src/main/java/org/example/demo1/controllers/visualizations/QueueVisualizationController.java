@@ -67,8 +67,8 @@ public class QueueVisualizationController {
             box.setArcHeight(10);
 
             Text text = new Text(String.valueOf(value));
-            text.setFill(Color.BLACK);
-            text.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+            text.setFill(Color.WHITE);
+            text.setStyle("-fx-font-size: 22px; -fx-font-weight: bold;");
 
             queueItem.getChildren().addAll(box, text);
 
