@@ -9,7 +9,6 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="org.example.demo1.controllers.DashboardController"
-            prefHeight="1000.0" prefWidth="1500.0"
             style="-fx-background-color: #f5f5f5;">
 
     <top>

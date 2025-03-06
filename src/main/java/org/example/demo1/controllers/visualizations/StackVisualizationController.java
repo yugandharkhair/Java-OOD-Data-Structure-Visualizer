@@ -129,8 +129,16 @@ public class StackVisualizationController {
             Parent root = loader.load();
 
             Stage stage = (Stage) backButton.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            double width = stage.getWidth();
+            double height = stage.getHeight();
+
+            Scene newScene = new Scene(root,width, height);
+            stage.setScene(newScene);
+
+            // Ensure no animation effect (maximize only if not already maximized)
+            if (!stage.isMaximized()) {
+                stage.setMaximized(true);
+            }
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
